@@ -1,1 +1,8 @@
-<p>releases works!</p>
+<div *ngIf="dataReady"> 
+    <div *ngFor="let rel of releases">
+        <p>Release #{{releases.length - releases.indexOf(rel)}}:</p>
+        <p>Release Name: {{rel.name}}</p>
+        <p>Published Date: {{rel.published_at.toLocaleDateString()}}</p>
+        <p>{{rel.body}}</p>
+    </div>
+</div>

@@ -61,6 +61,15 @@ import { StorageComponent } from './components/contentElement/storage/storage.co
 import { SecurityComponent } from './components/contentElement/security/security.component';
 
 
+// Firebase
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { environment } from '../environments/environment';
+
+// //http
+import { HttpClientModule } from '@angular/common/http';
+
+
 
 @NgModule({
   declarations: [
@@ -118,6 +127,7 @@ import { SecurityComponent } from './components/contentElement/security/security
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

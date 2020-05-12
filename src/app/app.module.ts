@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 /**
  * COMPONENTS
  */
@@ -14,6 +15,7 @@ import { ReportComponent } from './report/report.component';
 import { ReleasesComponent } from './releases/releases.component';
 import { BugsComponent } from './bugs/bugs.component';
 import { IntroductionComponent } from './components/contentElement/introduction/introduction.component';
+import { DesignComponent } from './components/contentElement/design/design.component';
 
 
 /**
@@ -53,6 +55,10 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
+import { RepositoryComponent } from './components/contentElement/repository/repository.component';
+import { EventualConnectivityComponent } from './components/contentElement/eventual-connectivity/eventual-connectivity.component';
+import { StorageComponent } from './components/contentElement/storage/storage.component';
+import { SecurityComponent } from './components/contentElement/security/security.component';
 
 
 
@@ -65,12 +71,18 @@ import {MatTreeModule} from '@angular/material/tree';
     ReportComponent,
     ReleasesComponent,
     BugsComponent,
-    IntroductionComponent
+    IntroductionComponent,
+    DesignComponent,
+    RepositoryComponent,
+    EventualConnectivityComponent,
+    StorageComponent,
+    SecurityComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
     MatAutocompleteModule,
     MatBadgeModule,
     MatBottomSheetModule,

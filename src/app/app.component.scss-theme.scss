@@ -1,0 +1,37 @@
+@import '~@angular/material/theming';
+@import './default-styles/default.scss-theme';
+@mixin app-component-theme($theme) {
+  // retrieve variables from theme 
+  // (all possible variables, use only what you really need)
+
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+  .color-changer{
+    display: flex;
+    width: 100;
+    margin-top: 24px;
+    justify-content: center;
+      mat-button-toggle{
+        .color-indicator{
+          width: 15px;
+          height: 15px;
+          border-radius: 50%;
+          display: inline-block;
+          background-color: mat-color($background, app-bar);
+          margin-right: 4px;
+          &[color=primary]{
+            @include toolbar-color($primary);
+          }
+          &[color=accent]{
+            @include toolbar-color($accent);
+          }
+          &[color=warn]{
+            @include toolbar-color($warn);
+          }
+        }
+      }
+    }
+}

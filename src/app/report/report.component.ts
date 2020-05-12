@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-report',
@@ -6,11 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./report.component.css']
 })
 export class ReportComponent implements OnInit {
-  panelOpenState = false;
+  @ViewChild('accordion') accordion: MatExpansionModule;
+
+  showOpenAll : boolean = true;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  handleOpenClose = () => {
+    this.showOpenAll = !this.showOpenAll;
   }
 
 }

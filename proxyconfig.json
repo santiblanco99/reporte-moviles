@@ -1,0 +1,7 @@
+{
+    "/githubapi/":{
+        "target": "https://api.github.com/repos/appditto/natrium_wallet_flutter/releases",
+        "secure": false,
+        "changeOrigin": true
+    }
+}

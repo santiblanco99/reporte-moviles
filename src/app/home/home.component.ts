@@ -21,12 +21,13 @@ export class HomeComponent implements OnInit {
   constructor(private commitService: CommitsService, private databaseService: DatabaseService) { }
 
   ngOnInit(): void {
-    this.dataReady = false;
-    this.commitService.getCommitsGit().subscribe(data => {
-      this.prueba = data;
-      this.dataReady = true;
-    });
-    this.getRespositoriesFromDatabase();
+    // this.dataReady = false;
+    // this.commitService.getCommitsGit().subscribe(data => {
+    //   this.prueba = data;
+    //   this.dataReady = true;
+    // });
+    // this.getRespositoriesFromDatabase();
+
   }
 
   getRespositoriesFromDatabase = () => {

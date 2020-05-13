@@ -1,4 +1,5 @@
 import { Author } from "./author";
+import { Asset } from './asset';
 export class Release {
 
     id: string;
@@ -22,5 +23,8 @@ export class Release {
     body: string;
 
     published_at: Date;
+
+    assets: Asset[];
+
 
 }

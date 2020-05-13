@@ -73,6 +73,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { BugDetailComponent } from './bugs/bug-detail/bug-detail.component';
 import { AddNewBugComponent } from './bugs/add-new-bug/add-new-bug.component';
 
+//charts
+import { ChartsModule } from 'ng2-charts';
+
 
 
 @NgModule({
@@ -97,7 +100,8 @@ import { AddNewBugComponent } from './bugs/add-new-bug/add-new-bug.component';
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
-    HttpClientModule,  
+    HttpClientModule,
+    ChartsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,

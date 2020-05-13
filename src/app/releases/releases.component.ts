@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Octokit } from "@octokit/rest";
+import { ReleasesService } from '../services/releases.service';
+import { Release } from '../models/release';
 
 @Component({
   selector: 'app-releases',
@@ -8,33 +9,22 @@ import { Octokit } from "@octokit/rest";
 })
 export class ReleasesComponent implements OnInit {
 
-  octokit;
-  user;
-  constructor() {
-    const accessToken = '0fec170cc23bf494e1a14056c8a54c21e5561423';
-    const repositoryName = 'natrium_wallet_flutter';
-    this.octokit = new Octokit({
-      auth: accessToken,
-      userAgent: 'GithubFetching v1.2.3',
-      baseUrl: 'https://api.github.com',
-    });
-
-  }
+  releases: Release[];
+  dataReady: boolean;
+  constructor(private releasesService: ReleasesService) { }
 
   ngOnInit(): void {
-    this.getUser().then(user => {
-      console.log('user ', user);
-    }).catch(e => console.error(e));
+    this.dataReady = false;
+    this.releasesService.getReleasesGit().subscribe(data=>{
+      console.log(data.length);
 
-  }
-
-  getUser = async () => {
-    if (!this.octokit)
-      return Promise.reject();
-    const { data } = await this.octokit.users.getByUsername({
-      username: 'sergioyepes21'
+      this.releases = data;
+      this.releases.forEach(element=>{
+        let date = new Date(element.published_at);
+        element.published_at = date;
+      });
+      this.dataReady = true;
     });
-    return Promise.resolve(data);
   }
 
 }

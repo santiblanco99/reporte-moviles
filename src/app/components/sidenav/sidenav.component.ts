@@ -10,6 +10,8 @@ export class SidenavComponent implements OnDestroy {
   
   mobileQuery: MediaQueryList;
 
+  sidenavNamesDisplayed = true;
+
   fillerNav = [
     {
       name:'Inicio',
@@ -49,6 +51,14 @@ export class SidenavComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
+  }
+
+  handleLeftArrowClicked = () => {
+    this.sidenavNamesDisplayed = false;
+  }
+
+  handleRightArrowClicked = () => {
+    this.sidenavNamesDisplayed = true;
   }
 
 }

@@ -1,12 +1,12 @@
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
+
 /**
  * COMPONENTS
  */
@@ -63,6 +63,17 @@ import { StorageComponent } from './components/contentElement/storage/storage.co
 import { SecurityComponent } from './components/contentElement/security/security.component';
 
 
+// Firebase
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { environment } from '../environments/environment';
+
+// //http
+import { HttpClientModule } from '@angular/common/http';
+import { BugDetailComponent } from './bugs/bug-detail/bug-detail.component';
+import { AddNewBugComponent } from './bugs/add-new-bug/add-new-bug.component';
+
+
 
 @NgModule({
   declarations: [
@@ -78,10 +89,14 @@ import { SecurityComponent } from './components/contentElement/security/security
     RepositoryComponent,
     EventualConnectivityComponent,
     StorageComponent,
-    SecurityComponent
+    SecurityComponent,
+    BugDetailComponent,
+    AddNewBugComponent
   ],
   imports: [
     BrowserModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
     HttpClientModule,  
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -120,7 +135,7 @@ import { SecurityComponent } from './components/contentElement/security/security
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatTreeModule,
+    MatTreeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

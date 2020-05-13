@@ -1,1 +1,10 @@
-<p>repository works!</p>
+<div>
+    <div class="container">
+        <p class="link"><a href="https://github.com/appditto/natrium_wallet_flutter">Link al respositorio</a></p>    
+        <button style="margin-bottom: 20px;" mat-raised-button color="warm" (click)="handleReadmeClicked()">README</button>
+        <div [innerHTML]='readmeHtml' *ngIf="readmeReady"></div>
+    </div>
+    <div class="container">
+        
+    </div>
+</div>

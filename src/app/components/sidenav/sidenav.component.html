@@ -1,6 +1,8 @@
 <div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
     <mat-toolbar class="example-toolbar">
-        <button mat-icon-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
+        <button mat-icon-button (click)="sidenav.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
         <h1 class="example-app-name">Reporte: Natrium Nano Wallet</h1>
     </mat-toolbar>
 
@@ -10,12 +12,22 @@
             <mat-nav-list>
                 <a mat-list-item class="sidenav-item" [routerLink]="nav.route" *ngFor="let nav of fillerNav">
                     <mat-icon>{{nav.icon}}</mat-icon>
+                    <span *ngIf="sidenavNamesDisplayed">{{nav.name}}</span>
 
-                    {{nav.name}}
                 </a>
+                <div style="padding-left: 15px;">
+                    <button mat-icon-button (click)="handleLeftArrowClicked()"
+                        *ngIf="sidenavNamesDisplayed">
+                        <mat-icon>keyboard_arrow_left</mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="handleRightArrowClicked()"
+                        *ngIf="!sidenavNamesDisplayed">
+                        <mat-icon>keyboard_arrow_right</mat-icon>
+                    </button>
+                </div>
+
             </mat-nav-list>
         </mat-sidenav>
-
         <mat-sidenav-content>
             <router-outlet></router-outlet>
         </mat-sidenav-content>

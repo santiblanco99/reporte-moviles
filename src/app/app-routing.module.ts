@@ -6,6 +6,7 @@ import { AboutComponent } from './about/about.component';
 import { ReportComponent } from './report/report.component';
 import { ReleasesComponent } from './releases/releases.component';
 import { BugsComponent } from './bugs/bugs.component';
+import { AddNewBugComponent } from './bugs/add-new-bug/add-new-bug.component';
 
 
 const routes: Routes = [
@@ -26,7 +27,11 @@ const routes: Routes = [
   },
   {
     path: 'about', component: AboutComponent
-  }
+  },
+  {
+    path: 'bugs/add_new_bug', component: AddNewBugComponent
+  },
+
 ];
 
 @NgModule({

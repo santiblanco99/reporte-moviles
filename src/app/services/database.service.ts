@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from "@angular/fire/firestore";
+import { AngularFireStorageModule } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
@@ -37,7 +38,12 @@ export class DatabaseService {
   }
 
   public createBug = (data: Bug): Promise<any> => {
-    return this.bugsCollection.add(data);
+    return this.bugsCollection.add(this.transformData(data));
+  }
+
+  private transformData = (data: any): any => {
+    Object.keys(data).forEach(key => data[key] === undefined ? delete data[key] : {});
+    return data;
   }
 
 }

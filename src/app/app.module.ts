@@ -66,6 +66,7 @@ import { SecurityComponent } from './components/contentElement/security/security
 // Firebase
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 import { environment } from '../environments/environment';
 
 // //http
@@ -76,6 +77,8 @@ import { AddNewBugComponent } from './bugs/add-new-bug/add-new-bug.component';
 //charts
 import { ChartsModule } from 'ng2-charts';
 
+//Forms
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -98,10 +101,15 @@ import { ChartsModule } from 'ng2-charts';
   ],
   imports: [
     BrowserModule,
+    
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
+    AngularFireStorageModule,
+
     HttpClientModule,
     ChartsModule,
+    ReactiveFormsModule,
+
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,

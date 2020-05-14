@@ -29,8 +29,8 @@ export class ReleasesComponent implements OnInit {
     this.dataReady = false;
     // console.log(localStorage.getItem('releasesizes'));
     // console.log(localStorage.getItem('releaseDates'));
-    let releasesizesTemp = JSON.parse('['+localStorage.getItem('releasesizes')+']');
-    let releaseDatesTemp = localStorage.getItem('releaseDates').split(',');
+    // let releasesizesTemp = JSON.parse('['+localStorage.getItem('releasesizes')+']');
+    // let releaseDatesTemp = localStorage.getItem('releaseDates').split(',');
 
    
 

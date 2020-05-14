@@ -1,12 +1,12 @@
 
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-
+import { NgxSpinnerModule } from "ngx-spinner";
 /**
  * COMPONENTS
  */
@@ -77,8 +77,6 @@ import { AddNewBugComponent } from './bugs/add-new-bug/add-new-bug.component';
 //charts
 import { ChartsModule } from 'ng2-charts';
 
-//Forms
-import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -97,7 +95,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     StorageComponent,
     SecurityComponent,
     BugDetailComponent,
-    AddNewBugComponent
+    AddNewBugComponent,
   ],
   imports: [
     BrowserModule,
@@ -108,11 +106,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 
     HttpClientModule,
     ChartsModule,
-    ReactiveFormsModule,
 
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
+    NgxSpinnerModule,
     MatAutocompleteModule,
     MatBadgeModule,
     MatBottomSheetModule,
@@ -150,6 +148,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatTreeModule
   ],
   providers: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

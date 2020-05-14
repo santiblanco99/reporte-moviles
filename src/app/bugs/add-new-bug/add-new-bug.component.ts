@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { FirebaseStorageService } from 'src/app/services/firebase-storage.service';
 import { Bug } from 'src/app/models/bug';
 import { DatabaseService } from 'src/app/services/database.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-add-new-bug',
@@ -25,6 +25,7 @@ export class AddNewBugComponent implements OnInit {
     private database: DatabaseService,
     private firebaseStorage: FirebaseStorageService,
     private _location: Location,
+    private spinner: NgxSpinnerService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -32,10 +33,7 @@ export class AddNewBugComponent implements OnInit {
 
   public onFileSelected(event): void {
     this.filesList = Array.from(event.target.files);
-    console.log('fileslist', this.filesList);
     if (this.filesList && this.filesList.length > 0) {
-      console.log('type', typeof this.filesList);
-
       if (!this.filesList.find(item => !item.type.includes('image/'))) {
         this.fileMsj = 'Archivos seleccionados exitosamente';
       } else {
@@ -47,11 +45,12 @@ export class AddNewBugComponent implements OnInit {
     }
   }
 
-  public onSafeBug(): void {
+  public async onSafeBug(): Promise<void> {
     if (!this.titleValue) {
       alert('Debe seleccionar un título');
     } else {
       // TODO: Change the repository id 
+      this.spinner.show();
       let bug: Bug = new Bug();
       bug = {
         ...bug,
@@ -63,9 +62,9 @@ export class AddNewBugComponent implements OnInit {
       }
       const onError = e => {
         console.error(e);
-        alert('Ha ocurrido un error inesperado.')
+        alert('Ha ocurrido un error inesperado.');
       };
-      this.database.createBug(bug).then(response => {
+      await this.database.createBug(bug).then(response => {
         if (response) {
           const id = response.id;
           bug.id = id;
@@ -77,6 +76,8 @@ export class AddNewBugComponent implements OnInit {
           }).catch(onError);
         }
       }).catch(onError);
+      
+      this.spinner.hide();
     }
   }
 

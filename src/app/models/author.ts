@@ -12,4 +12,6 @@ export class Author {
 
     url: string;
 
+    avatar_url: string;
+
 }  

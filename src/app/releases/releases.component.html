@@ -1,22 +1,41 @@
-<div style="display: block;" *ngIf="dataReady">
+<div *ngIf="dataReady">
     <h1>Tamaño de Release en Función del Tiempo</h1>
-    <canvas baseChart width="400" height="200" [datasets]="lineChartData" [labels]="lineChartLabels"
+    <canvas baseChart width="300" height="100" [datasets]="lineChartData" [labels]="lineChartLabels"
         [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
         (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
 </div>
-
+<div class="botones">
+    <button mat-button mat-raised-button color="grey" (click)="ReleasesRecientes()">Releases Recientes</button>
+    <button mat-button mat-raised-button color="grey" (click)="ReleasesViejos()">Releases Viejos</button>
+    <button mat-button mat-raised-button color="grey" (click)="todosReleases()">Todos los Releases</button>
+    <button mat-button mat-raised-button color="grey" (click)="colorRandom()">:)</button>
+</div>
 <div *ngIf="dataReady">
-    <span *ngFor="let rel of releases">
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>Release Name: {{rel.name}}</mat-card-title>
-                <mat-card-subtitle>Release #{{releases.length - releases.indexOf(rel)}}</mat-card-subtitle>
-                <mat-card-subtitle>Published Date: {{rel.published_at.toLocaleDateString()}}</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <p>{{rel.body}}</p>
-            </mat-card-content>
-        </mat-card>
-        <mat-divider></mat-divider>
-    </span>
+    <mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header class="lista">
+                <mat-panel-title>
+                    <span>Lista de Releases</span>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <span *ngFor="let rel of releases">
+                <mat-card>
+                    <mat-card-header>
+                        <div mat-card-avatar class="example-header-image"
+                            style="background-image: url({{rel.author.avatar_url}}); background-size: cover;">
+                        </div>
+                        <mat-card-title>{{rel.name}}, Release #{{releases.length - releases.indexOf(rel)}}
+                        </mat-card-title>
+                        <mat-card-subtitle>By: {{rel.author.login}}, Published Date:
+                            {{rel.published_at.toLocaleDateString()}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <a href={{rel.html_url}}>Release en GitHub</a>
+                        <p>{{rel.body}}</p>
+                    </mat-card-content>
+                </mat-card>
+                <mat-divider></mat-divider>
+            </span>
+        </mat-expansion-panel>
+    </mat-accordion>
 </div>

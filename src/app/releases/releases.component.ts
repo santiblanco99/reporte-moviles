@@ -17,12 +17,13 @@ export class ReleasesComponent implements OnInit {
   dataReady: boolean;
   lineChartData: ChartDataSets[];
   public lineChartLabels: Label[];
+  originalChartData: number[];
 
 
   constructor(private releasesService: ReleasesService) { }
 
   async ngOnInit(): Promise<void> {
-  
+
 
     this.releaseSizes = [];
     this.releaseDates = [];
@@ -32,26 +33,29 @@ export class ReleasesComponent implements OnInit {
     // let releasesizesTemp = JSON.parse('['+localStorage.getItem('releasesizes')+']');
     // let releaseDatesTemp = localStorage.getItem('releaseDates').split(',');
 
-   
+
 
     let data = await this.releasesService.getReleasesGit().toPromise();
 
     this.releases = data;
-    for(var i = 0; i < this.releases.length;i++) {
+    for (var i = 0; i < this.releases.length; i++) {
       let element = this.releases[i];
       let date = new Date(element.published_at);
       element.published_at = date;
-      let assets = await this.releasesService.getReleaseAssets(element.assets_url).toPromise();
-      element.assets = assets;
-      if (assets.length > 0) {
-        this.releaseSizes.push(assets[0].size/1000000);
+      console.log(element.author.avatar_url);
+      //let assets = await this.releasesService.getReleaseAssets(element.assets_url).toPromise();
+      //element.assets = assets;
+      if (element.assets.length > 0) {
+        this.releaseSizes.push(element.assets[0].size / 1000000);
         this.releaseDates.push(element.published_at.toLocaleDateString());
       }
     }
+    let chartData = this.releaseSizes.slice().reverse();
+    let chartLabels = this.releaseDates.slice().reverse();
     this.lineChartData = [
-      { data: this.releaseSizes.reverse(), label: 'Tamaño Release (MB)' }
+      { data: chartData, label: 'Tamaño Release (MB)' }
     ];
-    this.lineChartLabels = this.releaseDates.reverse();
+    this.lineChartLabels = chartLabels;
     // console.log(this.releaseSizes.toString());
     // localStorage.setItem('releasesizes',this.releaseSizes.toString());
     // localStorage.setItem('releaseDates',this.releaseDates.toString());
@@ -59,7 +63,7 @@ export class ReleasesComponent implements OnInit {
     // console.log(JSON.parse('['+localStorage.getItem('releasesizes')+']'));
     this.dataReady = true;
 
-    
+
 
 
   }
@@ -117,6 +121,45 @@ export class ReleasesComponent implements OnInit {
 
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
     console.log(event, active);
+  }
+
+  public ReleasesViejos() {
+    let data = this.releaseSizes.slice().reverse();
+    let labels = this.releaseDates.slice().reverse();
+    for (var i = 0; i < 7; i++) {
+      data.pop();
+      labels.pop();
+    }
+    this.lineChartData[0].data = data;
+    this.lineChartLabels = labels;
+  }
+  public ReleasesRecientes() {
+    let data = this.releaseSizes.slice().reverse();
+    let labels = this.releaseDates.slice().reverse();
+    for (var i = 0; i < 7; i++) {
+      data.shift();
+      labels.shift();
+    }
+    this.lineChartData[0].data = data;
+    this.lineChartLabels = labels;
+  }
+  public todosReleases(){
+    let data = this.releaseSizes.slice().reverse();
+    let labels = this.releaseDates.slice().reverse();
+    this.lineChartData[0].data = data;
+    this.lineChartLabels = labels;
+  }
+  public colorRandom() {
+    
+    this.lineChartColors[0].borderColor = this.randomRGB('1');
+    this.lineChartColors[0].backgroundColor = this.randomRGB('0.3');
+  }
+
+  public randomRGB(transperency:string){
+    let r = (Math.random() * 255);
+    let g = (Math.random() * 255);
+    let b = (Math.random() * 255);
+    return `rgba(${r},${g},${b},${transperency})`
   }
 
 }

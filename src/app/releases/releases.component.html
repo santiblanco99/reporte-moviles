@@ -1,5 +1,6 @@
-<div style="display: block;" >
-    <canvas baseChart width="400" height="400" [datasets]="lineChartData" [labels]="lineChartLabels"
+<div style="display: block;" *ngIf="dataReady">
+    <h1>Tamaño de Release en Función del Tiempo</h1>
+    <canvas baseChart width="400" height="200" [datasets]="lineChartData" [labels]="lineChartLabels"
         [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
         (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
 </div>
@@ -10,10 +11,9 @@
             <mat-card-header>
                 <mat-card-title>Release Name: {{rel.name}}</mat-card-title>
                 <mat-card-subtitle>Release #{{releases.length - releases.indexOf(rel)}}</mat-card-subtitle>
+                <mat-card-subtitle>Published Date: {{rel.published_at.toLocaleDateString()}}</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
-                <p>Published Date: {{rel.published_at.toLocaleDateString()}}</p>
-
                 <p>{{rel.body}}</p>
             </mat-card-content>
         </mat-card>

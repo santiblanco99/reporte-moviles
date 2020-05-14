@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DatabaseService } from "../services/database.service";
-import { BugDetailComponent } from "./bug-detail/bug-detail.component";
 import { Router } from '@angular/router';
 
 /*

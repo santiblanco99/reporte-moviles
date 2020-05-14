@@ -1,20 +1,20 @@
 import { Multimedia } from './multimedia';
-export interface Bug {
-    id ?: string;
+export class Bug {
+    id?: string;
 
-    is_resolved ?: boolean;
+    is_resolved?: boolean;
 
-    description ?: string;
+    description?: string;
 
-    title ?: string;
+    title?: string;
 
-    priority ?: number;
+    priority?: number;
 
-    commit_id ?: string;
+    commit_id?: string;
 
-    repository_id ?: string;
+    repository_id?: string;
 
-    multimedia_list ?: Multimedia[];
+    multimedia_list?: string[];
 
 
 

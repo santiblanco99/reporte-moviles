@@ -5,6 +5,7 @@ import { FirebaseStorageService } from 'src/app/services/firebase-storage.servic
 import { Bug } from 'src/app/models/bug';
 import { DatabaseService } from 'src/app/services/database.service';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-new-bug',
@@ -15,6 +16,7 @@ export class AddNewBugComponent implements OnInit {
 
   titleValue: string;
   descriptionValue: string;
+  priorityValue: string = '1';
   filesList: File[];
   formData: FormData = new FormData();
   fileMsj: string = '';
@@ -22,6 +24,7 @@ export class AddNewBugComponent implements OnInit {
   constructor(
     private database: DatabaseService,
     private firebaseStorage: FirebaseStorageService,
+    private _location: Location,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -49,26 +52,31 @@ export class AddNewBugComponent implements OnInit {
       alert('Debe seleccionar un título');
     } else {
       // TODO: Change the repository id 
-      const bug: Bug = {
+      let bug: Bug = new Bug();
+      bug = {
+        ...bug,
         title: this.titleValue,
         description: this.descriptionValue,
         repository_id: 'JC9m2GT33XF8nYFl30qZ',
         is_resolved: false,
-        priority: 1
+        priority: Number(this.priorityValue)
       }
+      const onError = e => {
+        console.error(e);
+        alert('Ha ocurrido un error inesperado.')
+      };
       this.database.createBug(bug).then(response => {
         if (response) {
           const id = response.id;
-          this.onUploadFile(id).then((_) => {
-            alert('Bug creado exitosamente.');
-            this.router.navigateByUrl('/bugs');
-          }).catch(e => {
-            console.error(e);
-            alert('Ha ocurrido un error inesperado.')
-          });
-
+          bug.id = id;
+          this.onUploadFile(id).then(async (_) => {
+            this.loadBugImages(bug).then((_) => {
+              alert('Bug creado exitosamente.');
+              this.router.navigateByUrl('/bugs');
+            }).catch(onError);
+          }).catch(onError);
         }
-      }).catch(e => console.error(e));
+      }).catch(onError);
     }
   }
 
@@ -79,7 +87,6 @@ export class AddNewBugComponent implements OnInit {
     let filesUploaded = 0;
     if (this.filesList && this.filesList.length > 0) {
       for (const file of this.filesList) {
-        const reference = this.firebaseStorage.getFileReference(file.name);
         const uploadTask = this.firebaseStorage.uploadBugFileTask(bug_id, file.name, file);
         await uploadTask.then((_) => filesUploaded++).catch(e => Promise.reject(e));
       }
@@ -87,6 +94,37 @@ export class AddNewBugComponent implements OnInit {
       this.fileMsj = 'Primero debe seleccionar una imágen.';
     }
     return filesUploaded;
+  }
+
+
+  private async loadBugImages(bug: Bug): Promise<any> {
+    if (bug && bug.id) {
+      const reference = this.firebaseStorage.getFileReference('bugs/' + bug.id);
+      let bugImages: string[] = [];
+      reference.listAll().subscribe(async list => {
+        for (const item of list.items) {
+          const url = await item.getDownloadURL().catch(e => {
+            console.error(e);
+            return null;
+          });
+          if (url) {
+            bugImages.push(url);
+          }
+        }
+        if (bugImages.length > 0) {
+          bug.multimedia_list = [...bugImages];
+          return await this.database.updateBug(bug);
+        } else {
+          return Promise.resolve();
+        }
+      }, e => {
+        return Promise.reject(e);
+      })
+    }
+  }
+
+  public onCancel(): void {
+    this._location.back();
   }
 
 }

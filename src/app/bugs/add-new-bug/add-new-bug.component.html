@@ -21,6 +21,16 @@
                                 <textarea matInput [(ngModel)]="descriptionValue"></textarea>
                             </mat-form-field>
                         </div>
+                        <div class="col-6">
+                            <mat-form-field>
+                                <mat-label>Prioridad del error:</mat-label>
+                                <mat-select [(value)]="priorityValue">
+                                    <mat-option value="1">Baja</mat-option>
+                                    <mat-option value="2">Media</mat-option>
+                                    <mat-option value="3">Alta</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
                         <div class="col-12">
                             <input #fileInput style="display: none;" type="file" accept="image/*" multiple
                                 (change)="onFileSelected($event)">
@@ -29,7 +39,10 @@
                     </div>
                 </mat-card-content>
                 <mat-card-footer>
-                    <button mat-raised-button (click)="onSafeBug()">Guardar</button>
+                    <div class="container" style="margin-bottom: 10px;">
+                        <button mat-raised-button (click)="onSafeBug()" style="margin-right: 30px;">Guardar</button>
+                        <button mat-raised-button (click)="onCancel()">Cancelar</button>
+                    </div>
                 </mat-card-footer>
             </mat-card>
         </div>

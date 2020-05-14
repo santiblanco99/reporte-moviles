@@ -33,6 +33,10 @@ export class DatabaseService {
     return this.repositoriesCollection.snapshotChanges();
   }
 
+  /**
+   * BUGS
+   */
+
   public getCurrentRepositoryBugs = (): Observable<any[]> => {
     return this.bugsRepositoryCollection.snapshotChanges();
   }
@@ -40,6 +44,17 @@ export class DatabaseService {
   public createBug = (data: Bug): Promise<any> => {
     return this.bugsCollection.add(this.transformData(data));
   }
+
+  public updateBug = (data: Bug): Promise<any> => {
+    if (!data || !data.id) {
+      return Promise.reject('You must specify an id');
+    }
+    return this.bugsCollection.doc(data.id).update(this.transformData(data));
+  }
+
+  /**
+   * HELPERS
+   */
 
   private transformData = (data: any): any => {
     Object.keys(data).forEach(key => data[key] === undefined ? delete data[key] : {});

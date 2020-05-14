@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Bug } from 'src/app/models/bug';
+import { FirebaseStorageService } from 'src/app/services/firebase-storage.service';
 
 @Component({
   selector: 'app-bug-detail',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BugDetailComponent implements OnInit {
 
-  constructor() { }
+  @Input() bug: Bug = new Bug();
+  bugImages: string[] = [];
+  constructor(
+    private firebaseStorage: FirebaseStorageService,
+  ) { }
 
   ngOnInit(): void {
   }
+
 
 }

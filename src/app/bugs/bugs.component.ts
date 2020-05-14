@@ -26,13 +26,21 @@ export class BugsComponent implements OnInit {
   }
 
   getAllBugsFromRepository = () => {
-    // this.databaseService.getCurrentRepositoryBugs().subscribe(bugsResponse => {
-    //   bugsResponse.map(item => {
-    //     const data = item.payload.doc.data();        
-    //     // return new Bug(item.payload.id, data.is_resolved, data.commit_id, data.description, data.title, data.priority, data.multimedia_list);
-    //   })
-
-    // })
+    this.databaseService.getCurrentRepositoryBugs().subscribe(bugsResponse => {
+      this.bugsList = bugsResponse.map(item => {
+        const data = item.payload.doc.data();
+        return <Bug>{
+          id: item.payload.doc.id,
+          commit_id: data.commit_id,
+          description: data.description,
+          title: data.title,
+          is_resolved: data.is_resolved,
+          priority: data.priority,
+          repository_id: data.repository_id,
+          multimedia_list: data.multimedia_list
+        };
+      });
+    })
   }
 
 

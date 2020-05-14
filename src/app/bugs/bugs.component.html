@@ -1,22 +1,31 @@
 <div class="container" style="margin-top: 50px;">
     <h1>Bugs encontrados</h1>
     <hr>
-    <mat-card class="bug-card">
-        <!-- <mat-card-header>
-            <mat-card-title>Agregar nuevo reporte</mat-card-title>
-        </mat-card-header> -->
-
-        <mat-card-content>
-            <div class="row">
-                <div class="col-md-6 col-sm-12">
-                    <h2>Agregar nuevo reporte</h2>
+    <div class="row">
+        <div class="col-12">
+            <mat-card class="bug-card">
+                <mat-card-content>
+                    <div class="row">
+                        <div class="col-6">
+                            <h2>Agregar nuevo reporte</h2>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn-right" mat-icon-button color="warm" (click)="handlerAddNewBug()">
+                                <mat-icon class="icon">add</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="col-12">
+            <mat-nav-list>
+                <div class="row">
+                    <div mat-list-item *ngFor="let bug of bugsList" class="col-12" style="margin-bottom: 25px;">
+                        <app-bug-detail  [bug]="bug"></app-bug-detail>
+                    </div>
                 </div>
-                <div class="col-md-6 col-sm-12" >
-                    <button class="btn-right" mat-icon-button color="warm" (click)="handlerAddNewBug()">
-                        <mat-icon class="icon">add</mat-icon>
-                    </button>
-                </div>
-            </div>
-        </mat-card-content>
-    </mat-card>
+            </mat-nav-list>
+        </div>
+    </div>
 </div>

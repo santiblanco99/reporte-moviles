@@ -1,0 +1,19 @@
+.circleBase {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    border: 3px solid white;
+}
+
+.redCircle {
+    background: red;
+}
+.greenCircle {
+    background: green;
+}
+.yellowCircle {
+    background: yellow;
+}
+.whiteCircle {
+    background: white;
+}

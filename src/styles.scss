@@ -16,7 +16,7 @@ body {
 .div-fit {
     display: inline-block;
 }
-.natrium-logo-img{
+.natrium-logo-img {
     width: 200px;
 }
 .terminal {
@@ -28,9 +28,9 @@ body {
     margin-top: 8px;
     overflow: hidden;
     background-color: rgb(15, 15, 16);
-  }
+}
 
-  .terminal::before {
+.terminal::before {
     content: "\2022 \2022 \2022";
     position: absolute;
     top: 0;
@@ -43,15 +43,16 @@ body {
     line-height: 0;
     padding: 14px 0;
     text-indent: 4px;
-  }
+}
 
-  .terminal pre {
-    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+.terminal pre {
+    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
     color: white;
     padding: 0 1rem 1rem;
     margin: 0;
-  }
+}
 
-  .terminal pre .comment{
-      color: #229977;
-  }
+.terminal pre .comment {
+    color: #229977;
+}
+

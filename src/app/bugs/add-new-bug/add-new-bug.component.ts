@@ -5,7 +5,6 @@ import { Bug } from 'src/app/models/bug';
 import { DatabaseService } from 'src/app/services/database.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-add-new-bug',
@@ -25,7 +24,6 @@ export class AddNewBugComponent implements OnInit {
     private database: DatabaseService,
     private firebaseStorage: FirebaseStorageService,
     private _location: Location,
-    private spinner: NgxSpinnerService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -50,7 +48,6 @@ export class AddNewBugComponent implements OnInit {
       alert('Debe seleccionar un título');
     } else {
       // TODO: Change the repository id 
-      this.spinner.show();
       let bug: Bug = new Bug();
       bug = {
         ...bug,
@@ -77,7 +74,6 @@ export class AddNewBugComponent implements OnInit {
         }
       }).catch(onError);
       
-      this.spinner.hide();
     }
   }
 

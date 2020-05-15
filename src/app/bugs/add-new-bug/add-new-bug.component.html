@@ -35,6 +35,7 @@
                             <input #fileInput style="display: none;" type="file" accept="image/*" multiple
                                 (change)="onFileSelected($event)">
                             <button mat-raised-button (click)="fileInput.click()">Cargar imágen</button>
+                            <p>{{fileMsj}}</p>
                         </div>
                     </div>
                 </mat-card-content>

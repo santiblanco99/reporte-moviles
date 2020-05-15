@@ -30,8 +30,3 @@ export class DesignComponent implements OnChanges {
     }
   }
 }
-
-class CustomImage {
-  url: string;
-  name: string;
-}

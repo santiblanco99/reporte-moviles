@@ -1,1 +1,84 @@
-<p>eventual-connectivity works!</p>
+<div class="component">
+    <h2>Errores detectados de conectividad eventual y su relación con el rendimiento</h2>
+    <p>
+        Una vez observamos las principales funcionalidades que la aplicación ofrecía, más el diseño que habían decidido
+        adoptar, optamos por encontrar problemas de conectividad eventual que pudieran afectar el rendimiento de la
+        aplicación
+        o la experiencia del usuario.
+    </p>
+    <hr>
+    <h2>En caso de no tener internet y encontrarse en la página principal</h2>
+    <p>
+        Si el usuario no cuenta con conexión a internet, la aplicación no detecta el estado de la conexión. Por otro
+        lado,
+        trata de hacer el llamado a algún servicio una y otra vez sin notificar al usuario.
+    </p>
+
+    <div class="row">
+        <div class="col-12">
+            <p>
+                La siguiente imagen revela cómo la aplicación se queda cargando la información:
+            </p>
+        </div>
+        <div class="col-12">
+            <img style="max-width: 500px;" class="img-thumbnail" src={{noConnectionOnHomeFirstPhoto.url}}
+                alt="{{noConnectionOnHomeFirstPhoto.name}}">
+        </div>
+        <div class="col-12">
+            <p>
+                Si observamos el <span class="italic">performance overlay</span>, nos damos cuenta cómo el
+                <span class="italic"> raster thread</span> (hilo que corre en el CPU) y el <span class="italic">UI
+                    thread</span>
+                se encuentran en constante trabajo debido a que la interfaz está siendo constantemente actualizada:
+            </p>
+        </div>
+        <div class="col-12">
+            <img style="max-width: 500px;" class="img-thumbnail" src={{noConnectionOnHomeForthPhoto.url}}
+                alt="{{noConnectionOnHomeForthPhoto.name}}">
+        </div>
+        <div class="col-12">
+            <p>
+                La siguiente imagen revela cómo el rendimiento de la aplicación se ve afectada, pues se registran picos
+                contínuos en el uso de memoria
+                del celular debido a la constante actualización de la interfaz y al intentar acceder a los servicios de
+                internet constantemente:
+            </p>
+        </div>
+        <div class="col-12">
+            <img width="100%" class="img-thumbnail" src={{noConnectionOnHomeSecondPhoto.url}}
+                alt="{{noConnectionOnHomeSecondPhoto.name}}">
+        </div>
+        <div class="col-12">
+            <p>
+                La siguiente imagen revela los constantes llamados fallidos a los servicios que provee Natrium con el
+                fin de recuperar
+                la información necesaria para el correcto funcionamiento de la aplicación:
+            </p>
+        </div>
+        <div class="col-12">
+            <img style="max-width: 500px;" class="img-thumbnail" src={{noConnectionOnHomeThirdPhoto.url}}
+                alt="{{noConnectionOnHomeThirdPhoto.name}}">
+        </div>
+
+        <hr>
+
+        <div class="col-12">
+            <h2>¿Qué se sugiere hacer para atacar este problema?</h2>
+            <p>
+                Actualmente, existe un paquete de Dart llamado <a target="_blank" rel="noopener noreferrer"
+                    href="https://pub.dev/packages/connectivity">connectivity</a> que permite
+                conocer el estado actual de conexión a internet del dispositivo móvil por medio de streams. De ese modo,
+                la aplicación podría detectar en qué
+                momento el usuario pierde conexión a internet, notificarle del estado y dejar de hacer llamados a la API
+                para no consumir memoria innecesariamente:
+            </p>
+            <!-- Terminal -->
+            <div class="terminal">
+                <pre>
+                    {{this.connectivityCode}}
+                </pre>
+            </div>
+        </div>
+    </div>
+    <hr>
+</div>

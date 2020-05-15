@@ -22,7 +22,7 @@
             <mat-nav-list>
                 <div class="row">
                     <div mat-list-item *ngFor="let bug of bugsList" class="col-12" style="margin-bottom: 25px;">
-                        <app-bug-detail  [bug]="bug"></app-bug-detail>
+                        <app-bug-detail  [bug]="bug" [issues]="issues"></app-bug-detail>
                     </div>
                 </div>
             </mat-nav-list>

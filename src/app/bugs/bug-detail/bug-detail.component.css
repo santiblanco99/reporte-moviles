@@ -17,3 +17,16 @@
 .whiteCircle {
     background: white;
 }
+
+.issuesB{
+    width: 70%;
+    display: block;
+    margin: 0 auto;
+}
+
+#option:hover {
+       background-color: tomato;
+}
+#option:focus {
+    background-color:tomato;
+}

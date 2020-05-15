@@ -1,4 +1,5 @@
 import { Multimedia } from './multimedia';
+import { Issue } from './Issue';
 export class Bug {
     id?: string;
 
@@ -15,6 +16,8 @@ export class Bug {
     repository_id?: string;
 
     multimedia_list?: string[];
+
+    issue: Issue;
 
 
 

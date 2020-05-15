@@ -6,6 +6,10 @@ import { Router } from '@angular/router';
   MODELS
 */
 import { Bug } from '../models/bug';
+import { Issue } from '../models/Issue';
+import { IssuesService } from '../services/issues.service';
+import { element } from 'protractor';
+import { Author } from '../models/author';
 
 @Component({
   selector: 'app-bugs',
@@ -15,12 +19,28 @@ import { Bug } from '../models/bug';
 export class BugsComponent implements OnInit {
 
   bugsList: Bug[];
+  issues: Issue[];
 
-  constructor(private databaseService: DatabaseService, private router: Router) {
+  constructor(private issueService: IssuesService, private databaseService: DatabaseService, private router: Router) {
 
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    this.issues = [];
+    this.issues = (await this.issueService.getIssues().toPromise()).map(element => {
+      return {
+        id: element.id,
+        html_url: element.html_url,
+        title: element.title,
+        body: element.body,
+        user: {
+          id: element.user.id,
+          login: element.user.login,
+        } as Author,
+        created_at: element.created_at,
+        updated_at: element.updated_at,
+      } as Issue
+    });
     this.getAllBugsFromRepository();
   }
 
@@ -36,7 +56,7 @@ export class BugsComponent implements OnInit {
           is_resolved: data.is_resolved,
           priority: data.priority,
           repository_id: data.repository_id,
-          multimedia_list: data.multimedia_list
+          multimedia_list: data.multimedia_list,
         };
       });
     })

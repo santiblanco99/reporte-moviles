@@ -1,4 +1,5 @@
 import { Component, Input, SimpleChanges, OnChanges } from '@angular/core';
+import {CustomImage} from "../../../models/customImage";
 
 @Component({
   selector: 'app-eventual-connectivity',

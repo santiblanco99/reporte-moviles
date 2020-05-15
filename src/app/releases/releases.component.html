@@ -4,7 +4,7 @@
         [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
         (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
 </div>
-<div class="botones">
+<div class="botones" *ngIf="dataReady">
     <button mat-button mat-raised-button color="grey" (click)="ReleasesRecientes()">Releases Recientes</button>
     <button mat-button mat-raised-button color="grey" (click)="ReleasesViejos()">Releases Viejos</button>
     <button mat-button mat-raised-button color="grey" (click)="todosReleases()">Todos los Releases</button>

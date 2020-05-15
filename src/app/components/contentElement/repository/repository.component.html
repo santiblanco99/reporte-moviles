@@ -1,10 +1,61 @@
-<div>
+<div *ngIf="dataReady">
     <div class="container">
-        <p class="link"><a href="https://github.com/appditto/natrium_wallet_flutter">Link al respositorio</a></p>    
-        <button style="margin-bottom: 20px;" mat-raised-button color="warm" (click)="handleReadmeClicked()">README</button>
-        <div [innerHTML]='readmeHtml' *ngIf="readmeReady"></div>
-    </div>
-    <div class="container">
-        
+        <a class = "title" href="https://github.com/appditto/natrium_wallet_flutter"><h1>{{repository.description}}</h1></a>
+        <h2>Datos y Estadísticas del Repositorio</h2>
+        <mat-grid-list cols="2" rowHeight="15rem">
+            <mat-grid-tile colspan="1">
+                <mat-card class="grid">
+                    <mat-card-header>
+                        <mat-card-title>Datos Generales</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>Nombre: <a class = "links" href="https://github.com/appditto/natrium_wallet_flutter">{{repository.name}}</a></p>
+                        <p>Dueño: <a href= "https://github.com/appditto" class = "links">{{repository.owner.login}}</a></p>
+                        <p>Lenguaje: <a class = "links" href = "https://dart.dev/">{{repository.language}}</a></p>
+                        <p>Última vez actualizado: {{repository.updated_at.toLocaleDateString()}}</p>
+                    </mat-card-content>
+                </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1">
+                <mat-card class="grid">
+                    <mat-card-header>
+                        <mat-card-title>Estadísticas</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>Número de Watchers: {{repository.watchers_count}}</p>
+                        <p>Issues Abiertos: {{repository.open_issues_count}}</p>
+                        <p>Número de Forks: {{repository.forks_count}}</p>
+                        <p>Número de Suscriptores: {{repository.subscribers_count}}</p>
+                    </mat-card-content>
+                </mat-card>
+            </mat-grid-tile>
+        </mat-grid-list>
+        <!-- <mat-accordion> -->
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <span>Lista de Dependencias de la aplicación</span>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <span *ngFor="let dep of dependencies">
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>{{dep.title}}</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>{{dep.desc}}</p>
+                    </mat-card-content>
+                </mat-card>
+                <mat-divider></mat-divider>
+            </span>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <span>README</span>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div [innerHTML]='readmeHtml'></div>
+        </mat-expansion-panel>
     </div>
 </div>

@@ -21,8 +21,12 @@ export class DatabaseService {
 
   private bugsCollection: AngularFirestoreCollection;
 
+  private dependencies: AngularFirestoreCollection;
+
   constructor(firestore: AngularFirestore) {
     this.repositoriesCollection = firestore.collection('repositories');
+
+    this.dependencies = firestore.collection('dependencies');
 
     this.bugsRepositoryCollection = firestore.collection('bugs', ref => ref.where('repository_id', '==', 'JC9m2GT33XF8nYFl30qZ'));
 
@@ -31,6 +35,13 @@ export class DatabaseService {
 
   public getRespositories = (): Observable<any[]> => {
     return this.repositoriesCollection.snapshotChanges();
+  }
+
+  /**
+   * DEPENDENCIES
+   */
+  public getDependencies = (): Observable<any[]> => {
+    return this.dependencies.snapshotChanges();
   }
 
   /**

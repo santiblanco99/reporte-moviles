@@ -1,4 +1,35 @@
-.link {
+
+
+mat-expansion-panel{
+    margin-bottom: 1rem;
+}
+
+mat-card{
+    margin-bottom: 1rem;
+}
+
+h2{
     text-align: center;
-    font-size: large;
+}
+
+.grid{
+    width: 80%;
+}
+
+.title{
+    color: white;
+    text-align: center;
+}
+
+.title:hover{
+    color:rgb(17, 31, 40);
+}
+
+.links {
+    color: white;
+
+}
+
+.links:hover{
+    color: rgb(17, 31, 40);
 }

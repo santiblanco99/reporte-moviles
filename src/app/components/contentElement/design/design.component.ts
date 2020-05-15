@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
+import { CustomImage } from 'src/app/models/customImage';
 
 @Component({
   selector: 'app-design',

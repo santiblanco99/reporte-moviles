@@ -15,10 +15,22 @@
                     {{bug.description}}
                 </div>
                 <mat-nav-list>
-                    <div class="col-12" mat-list-item *ngFor="let url of bug.multimedia_list" style="margin-bottom: 20px;">
+                    <div class="col-12" mat-list-item *ngFor="let url of bug.multimedia_list"
+                        style="margin-bottom: 20px;">
                         <img style="max-width: 500px;" class="img-fluid" src={{url}} alt="{{bug.title + ' image'}}">
                     </div>
-                 </mat-nav-list>
+                </mat-nav-list>
+            </div>
+            <button class="issuesB" mat-raised-button (click)="toggleIssues()" color="warn">Asociar a un Issue</button>
+            <div *ngIf="showIssues">
+                <mat-action-list>
+                    <span *ngFor="let issue of issues">
+                        <button mat-list-item (click)="selectIssue(issue)" id="option">{{issue.title}}</button>
+                        <mat-divider></mat-divider>
+                    </span>
+                    <button class="issuesB" mat-raised-button (click)="updateIssueBug()" color="accent">Update Issue</button>
+                </mat-action-list>
+
             </div>
         </mat-card-content>
     </mat-card>

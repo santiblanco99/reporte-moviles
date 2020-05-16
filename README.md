@@ -1,4 +1,4 @@
-# ReporteMoviles
+# Reporte Moviles
 
 Este es el repositorio para la entrega del reporte de Construcción de aplicaciones móviles, de la Universidad de Los Andes.
 

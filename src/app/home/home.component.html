@@ -1,1 +1,40 @@
-<p>Hola</p>
+<div *ngIf="dataReady" class="container">
+    <h1>Pull Request Realizado</h1>
+    <p>Luego de un análisis extenso de la aplicación escogida, se encontró que no se estaban teniendo en cuenta
+        eventos de conectividad eventual, razón por la cual decidimos modificar el código para implementar el plugin
+        enseñado en clase, "Connectivity". A continuación se muestran snippets del código implementados en la
+        aplicacion:
+    </p>
+    <pre><code [highlight]="code1" [lineNumbers]="true" [languages]="language"></code></pre>
+    <pre><code [highlight]="code2"  [lineNumbers]="true" [languages]="language"></code></pre>
+    <p>Para nuestro caso particular, se hizo uso del plugin de la aplicacion "intl", con el fin de que el mensaje
+        indicando
+        la falta de conexión a internet pudiera ser traducido a cualquier idioma disponible en la apliación.
+        Posteriormente,
+        se realizó una función que utilizara un stream del resultado de la conexión de <i>Connectivity</i>, para que en
+        cualquier momento que se quedara el dispositivo sin conexión se le pudiera notificar correctamente.
+    </p>
+    <h3>Petición de Pull Request en el Repositorio</h3>
+
+    <div class="card" style="width: 100%;">
+        <div class="card-body">
+            <h4 class="card-title">{{pullRequest.title}}</h4>
+            <h5 class="card-subtitle mb-2 text-muted">{{pullRequest.user.login}}</h5>
+            <p class="card-text">{{pullRequest.body}}</p>
+            <a href="{{pullRequest.html_url}}" class="card-link">Github</a>
+        </div>
+    </div>
+    <mat-card *ngFor="let comment of comments">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"
+                style="background-image: url({{comment.user.avatar_url}}); background-size: cover;">
+            </div>
+            <mat-card-title>{{comment.user.login}}</mat-card-title>
+            <mat-card-subtitle>{{comment.author_association}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <p>{{comment.body}}</p>
+            <a href={{comment.html_url}}>GitHub</a>
+        </mat-card-content>
+    </mat-card>
+</div>

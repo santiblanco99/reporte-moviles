@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { HtmlParser } from '@angular/compiler';
 import {Repository} from "../models/repository";
+import { PullRequest } from '../models/pullRequest';
+import { PullRequestComment } from '../models/pullRequestComment';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +26,13 @@ export class RepositoryService {
 
   getRepository(){
     return this.http.get<Repository>("https://api.github.com/repos/appditto/natrium_wallet_flutter");
+  }
+
+  getPullRequest(){
+    return this.http.get<PullRequest>("https://api.github.com/repos/appditto/natrium_wallet_flutter/pulls/72");
+  }
+
+  getPullRequestComments(){
+    return this.http.get<PullRequestComment[]>("https://api.github.com/repos/appditto/natrium_wallet_flutter/issues/72/comments");
   }
 }

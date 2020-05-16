@@ -21,16 +21,24 @@
                     </div>
                 </mat-nav-list>
             </div>
-            <button class="issuesB" mat-raised-button (click)="toggleIssues()" color="warn">Asociar a un Issue</button>
-            <div *ngIf="showIssues">
-                <mat-action-list>
-                    <span *ngFor="let issue of issues">
-                        <button mat-list-item (click)="selectIssue(issue)" id="option">{{issue.title}}</button>
-                        <mat-divider></mat-divider>
-                    </span>
-                    <button class="issuesB" mat-raised-button (click)="updateIssueBug()" color="accent">Update Issue</button>
-                </mat-action-list>
-
+            <div *ngIf="bug.issue">
+                <a target="_blank" rel="noopener noreferrer" href={{bug.issue.html_url}}>
+                    <button mat-raised-button color="warm">Ir a issue</button>
+                </a>
+            </div>
+            <div *ngIf="!bug.issue">
+                <button class="issuesB" mat-raised-button (click)="toggleIssues()" color="warn">Asociar a un
+                    Issue</button>
+                <div *ngIf="showIssues">
+                    <mat-action-list>
+                        <span *ngFor="let issue of issues">
+                            <button mat-list-item (click)="selectIssue(issue)" id="option">{{issue.title}}</button>
+                            <mat-divider></mat-divider>
+                        </span>
+                        <button class="issuesB" mat-raised-button (click)="updateIssueBug()" color="accent">Update
+                            Issue</button>
+                    </mat-action-list>
+                </div>
             </div>
         </mat-card-content>
     </mat-card>

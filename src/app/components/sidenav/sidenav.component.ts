@@ -33,11 +33,6 @@ export class SidenavComponent implements OnDestroy {
       route: '/bugs',
       icon: 'bug_report'
     },
-    {
-      name:'Acerca',
-      route: '/about',
-      icon: 'info'
-    },
   ];
 
   private _mobileQueryListener: () => void;

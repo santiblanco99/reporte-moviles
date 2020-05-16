@@ -77,6 +77,9 @@ import { AddNewBugComponent } from './bugs/add-new-bug/add-new-bug.component';
 //charts
 import { ChartsModule } from 'ng2-charts';
 
+//cool code editor
+import { HighlightModule } from 'ngx-highlightjs';
+
 
 
 @NgModule({
@@ -106,6 +109,8 @@ import { ChartsModule } from 'ng2-charts';
 
     HttpClientModule,
     ChartsModule,
+
+    HighlightModule,
 
     AppRoutingModule,
     BrowserAnimationsModule,

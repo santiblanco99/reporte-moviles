@@ -1,27 +1,20 @@
 # ReporteMoviles
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.1.
+Este es el repositorio para le entrega del reporte de Construcción de aplicaciones móviles
 
 ## Development server
+Antes de correr la aplicación es necesario que primero instale las dependencias necesarias, ejecutando desde la terminal `npm install` o `npm i`
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+Para correr la página web, ejecute el comando `ng serve --open` o `npm start`desde el directorio del respositorio, luego navegue desde su browser a `http://localhost:4200/`.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+## Video de muestra
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Para ver un video ejemplificando el uso de la página, haga clic en el siguiente [enlace](https://www.youtube.com/watch?v=EjBlE0gWXAM&feature=youtu.be)
 
-## Running unit tests
+## Estudiantes
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Los estudiantes que hacen parte de este proyecto son:
+* Sergio Yepes: 201629945
+* Santiago Blanco: 201630630

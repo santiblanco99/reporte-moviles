@@ -50,7 +50,7 @@ export class BugsComponent implements OnInit {
         const data = item.payload.doc.data();
         return <Bug>{
           id: item.payload.doc.id,
-          commit_id: data.commit_id,
+          issue: data.issue,
           description: data.description,
           title: data.title,
           is_resolved: data.is_resolved,

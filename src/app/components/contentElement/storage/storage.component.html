@@ -1,2 +1,89 @@
-<pre><code [highlight]="code" (highlighted)="onHighlight($event)" [lineNumbers]="true"></code></pre>
+<div class="container">
+    <h2>¿Cómo maneja el almacenamiento local?</h2>
+    <hr>
+    <div class="shared_preferences">
+        <h3>
+            Shared preferences
+            <a target="_blank" rel="noopener noreferrer" href="https://pub.dev/packages/shared_preferences">
+                <mat-icon>link</mat-icon>
+            </a>
+        </h3>
+        <p>
+            Ellos usan este plugin para configurar múltiples preferencias que el usuario puede cambiar desde la interfaz
+            de
+            la aplicación. Algunas de ellas son las siguientes:
+        </p>
+        <div class="row">
+            <ol class="list">
+                <li *ngFor="let sp of sharedPreferencesList;let index=index;">
+                    <h4 class="headline">{{sp.title}}</h4>
+                    <p>{{sp.description}}</p>
+                    <pre>
+                        <code [highlight]="sp.code" [lineNumbers]="true"></code>
+                    </pre>
+                </li>
+            </ol>
+            <!-- <div *ngFor="let sp of sharedPreferencesList" class="col-12">
+            </div> -->
+        </div>
+    </div>
+    <div class="sqlite">
+        <h3>
+            Sqlite
+            <a target="_blank" rel="noopener noreferrer" href="https://pub.dev/packages/sqlite">
+                <mat-icon>link</mat-icon>
+            </a>
+        </h3>
+        <p>
+            Ellos usan este plugin para configurar almacenar la información de las cuentas asociadas y los contactos que
+            tiene
+            el usuario. Por lo tanto, cuenta con dos tablas que son:
 
+        </p>
+        <div class="row">
+            <ol class="list">
+                <li *ngFor="let sl of sqliteList;let index=index;">
+                    <h4 class="headline">{{sl.title}}</h4>
+                    <p>{{sl.description}}</p>
+                    <pre>
+                        <code [highlight]="sl.code" (highlighted)="onHighlight($event)" [lineNumbers]="true"></code>
+                    </pre>
+                </li>
+            </ol>
+            <!-- <div *ngFor="let sp of sharedPreferencesList" class="col-12">
+            </div> -->
+        </div>
+    </div>
+    <div class="sqlite">
+        <h3>
+            Flutter secure storage
+            <a target="_blank" rel="noopener noreferrer" href="https://pub.dev/packages/flutter_secure_storage ">
+                <mat-icon>link</mat-icon>
+            </a>
+        </h3>
+        <p>
+            Este plugin permite almacenar de forma segura la información que se requiera. Para iOS, se utiliza
+            <a target="_blank" rel="noopener noreferrer"
+                href="https://developer.apple.com/documentation/security/keychain_services#//apple_ref/doc/uid/TP30000897-CH203-TP1">keychain</a>,
+            mientras que para Android utiliza <a
+                href="https://developer.android.com/training/articles/keystore.html">KeyStore</a>, la cual se encuentra disponible únicamente desde
+                Android 4.3 (API nivel 18).
+        </p>
+        <p>
+            El caso en que lo usan es el siguiente:
+        </p>
+        <div class="row">
+            <ol class="list">
+                <li *ngFor="let fssl of flutterSecureStorageList;let index=index;">
+                    <h4 class="headline">{{fssl.title}}</h4>
+                    <p>{{fssl.description}}</p>
+                    <pre>
+                        <code [highlight]="fssl.code" (highlighted)="onHighlight($event)" [lineNumbers]="true"></code>
+                    </pre>
+                </li>
+            </ol>
+            <!-- <div *ngFor="let sp of sharedPreferencesList" class="col-12">
+            </div> -->
+        </div>
+    </div>
+</div>

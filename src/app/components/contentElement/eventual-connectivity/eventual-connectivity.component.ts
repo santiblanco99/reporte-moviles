@@ -1,5 +1,6 @@
 import { Component, Input, SimpleChanges, OnChanges } from '@angular/core';
 import {CustomImage} from "../../../models/customImage";
+import { HighlightResult } from 'ngx-highlightjs';
 
 @Component({
   selector: 'app-eventual-connectivity',
@@ -30,8 +31,7 @@ export class EventualConnectivityComponent implements OnChanges {
     name: 'Forth error\'s photo'
   }
 
-  connectivityCode = `
-  import 'package:connectivity/connectivity.dart';
+  connectivityCode = `import 'package:connectivity/connectivity.dart';
   var connectivityResult = await (Connectivity().checkConnectivity());
   if (connectivityResult == ConnectivityResult.mobile) {
   // I am connected to a mobile network.

@@ -70,14 +70,18 @@
                 conocer el estado actual de conexión a internet del dispositivo móvil por medio de streams. De ese modo,
                 la aplicación podría detectar en qué
                 momento el usuario pierde conexión a internet, notificarle del estado y dejar de hacer llamados a la API
-                para no consumir memoria innecesariamente:
+                para no consumir memoria innecesariamente. Cabe resaltar que se realizó un pull request respecto a esta problemática,
+                el cual se encuentra en el inicio de esta página. Según la documentación del plugin, este es un ejemplo básico:
             </p>
             <!-- Terminal -->
-            <div class="terminal">
+            <pre>
+                <code [highlight]="connectivityCode" [lineNumbers]="true"></code>
+            </pre>
+            <!-- <div class="terminal">
                 <pre>
                     {{this.connectivityCode}}
                 </pre>
-            </div>
+            </div> -->
         </div>
     </div>
     <hr>

@@ -5,6 +5,9 @@ Este es el repositorio para la entrega del reporte de Construcción de aplicacio
 Bogotá, Mayo 2020
 
 ## Development server
+**Importante**: La página web fue desarrollada a través del framework de Javascript `Angular`, razón por la cual es necesario tener este componente instalado en su computador. Si no lo tiene instalado, lo puede realizar a través del comando `npm install -g @angular/cli`
+
+
 Antes de correr la aplicación es necesario que primero instale las dependencias necesarias, ejecutando desde la terminal `npm install` o `npm i` desde el directorio principal del repositorio (`reporte-moviles/`)
 
 

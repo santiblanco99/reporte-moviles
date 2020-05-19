@@ -1,17 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { HighlightResult } from 'ngx-highlightjs';
+import { CustomImage } from 'src/app/models/customImage';
 
 @Component({
   selector: 'app-storage',
   templateUrl: './storage.component.html',
   styleUrls: ['./storage.component.css']
 })
-export class StorageComponent implements OnInit {
+export class StorageComponent implements OnChanges {
+  @Input() commonImages: CustomImage[];
+
+  photoList: CustomImage[] = [];
+
+  loginImage: CustomImage = {
+    url: '',
+    name: ''
+  };
+
+  logoutImage: CustomImage = {
+    url: '',
+    name: ''
+  };
+
+  register1Image: CustomImage = {
+    url: '',
+    name: ''
+  };
+
+  register2Image: CustomImage = {
+    url: '',
+    name: ''
+  };
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
 
   response: HighlightResult;
 
@@ -135,6 +157,151 @@ Future<String> _write(String key, String value) async {
       value: '{...}'
     }
   }
+
+  languages = ["dart"];
+
+
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.commonImages && this.commonImages.length > 0) {
+      for (let item of this.commonImages) {
+        if (item.name.includes("login")) {
+          this.photoList.push(item);
+          this.loginImage = {...item};
+        }
+        else if (item.name.includes("logout")) {
+          this.photoList.push(item);
+          this.logoutImage = {...item};
+        }
+        else if (item.name.includes("register1")) {
+          this.photoList.push(item);
+          this.register1Image = {...item};
+        }
+        else if (item.name.includes("register2")) {
+          this.photoList.push(item);
+          this.register2Image = {...item};
+        }
+      }
+    }
+  }
+
+
+
+
+  mantaUtilCode = `class MantaUtil {
+    // Utilities for the manta protocol
+    static Future<PaymentRequestMessage> getPaymentDetails(MantaWallet manta) async {
+      await manta.connect();
+      final RSAPublicKey cert = await manta.getCertificate();
+      final PaymentRequestEnvelope payReqEnv = await manta.getPaymentRequest(
+        cryptoCurrency: "NANO");
+      if (!payReqEnv.verify(cert)) {
+        throw 'Certificate verification failure';
+      }
+      final PaymentRequestMessage payReq = payReqEnv.unpack();
+      return payReq;
+    }`
+  mantaCode = `Future<void> scanAndHandlResult() async {
+    dynamic scanResult = await Navigator.pushNamed(context, '/before_scan_screen');
+    // Parse scan data and route appropriately
+    if (scanResult == null) {
+      UIUtil.showSnackbar(AppLocalization.of(context).qrInvalidAddress, context);
+    } else if (!QRScanErrs.ERROR_LIST.contains(scanResult) &&  MantaWallet.parseUrl(scanResult) != null) {
+      try {
+        _showMantaAnimation();
+        // Get manta payment request
+        MantaWallet manta = MantaWallet(scanResult);
+        PaymentRequestMessage paymentRequest = await MantaUtil.getPaymentDetails(manta);
+        if (animationOpen) {
+          Navigator.of(context).pop();
+        }
+        MantaUtil.processPaymentRequest(context, manta, paymentRequest);
+      } catch (e) {
+        if (animationOpen) {
+          Navigator.of(context).pop();
+        }
+        UIUtil.showSnackbar(AppLocalization.of(context).mantaError, context);
+      }
+    } else if (!QRScanErrs.ERROR_LIST.contains(scanResult)) {
+      // Is a URI
+      Address address = Address(scanResult);
+      if (address.address == null) {
+        UIUtil.showSnackbar(AppLocalization.of(context).qrInvalidAddress, context);
+      } else {
+        // See if this address belongs to a contact
+        Contact contact = await sl.get<DBHelper>().getContactWithAddress(address.address);
+        // If amount is present, fill it and go to SendConfirm
+        BigInt amountBigInt = address.amount != null ? BigInt.tryParse(address.amount) : null;
+        if (amountBigInt != null && amountBigInt < BigInt.from(10).pow(26)) {
+          UIUtil.showSnackbar(AppLocalization.of(context).minimumSend.replaceAll("%1", "0.000001"), context);
+        } else if (amountBigInt != null && StateContainer.of(context).wallet.accountBalance > amountBigInt) {
+          // Go to confirm sheet
+          Sheets.showAppHeightNineSheet(
+            context: context,
+            widget: SendConfirmSheet(
+                      amountRaw: address.amount,
+                      destination: contact != null ? contact.address : address.address,
+                      contactName: contact != null ? contact.name : null)
+          );
+        } else {
+          // Go to send sheet
+          Sheets.showAppHeightNineSheet(
+            context: context,
+            widget: SendSheet(
+              localCurrency: StateContainer.of(context).curCurrency,
+              contact: contact,
+              address: contact != null ? contact.address : address.address
+            )
+          );            
+        }
+      }
+    }
+  }`;
+
+  mantaClassCode = `class MantaWallet {
+    String session_id;
+    String host;
+    int port;
+    Map<String, String> topics;
+    mqtt.MqttClient client;
+    Completer<RSAPublicKey> certificate;
+    StreamQueue<RSAPublicKey> certificates;
+    StreamQueue<AckMessage> acks;
+    StreamQueue<PaymentRequestEnvelope> requests;
+    bool _gettingCert = false;
+    bool useWebSocket = false;
+    bool autoReconnect = false;
+  
+    static Match parseUrl(String url) {
+      RegExp exp = new RegExp(r"^manta://((?:\w|\.)+)(?::(\d+))?/(.+)$");
+      final matches = exp.allMatches(url);
+      return matches.isEmpty ? null : matches.first;
+    }`;
+
+    mantaPaymentCode = `static void processPaymentRequest(BuildContext context, MantaWallet manta, PaymentRequestMessage paymentRequest) {
+      // Validate account balance and destination as valid
+      Destination dest = paymentRequest.destinations[0];
+      String rawAmountStr = NumberUtil.getAmountAsRaw(dest.amount.toString());
+      BigInt rawAmount = BigInt.tryParse(rawAmountStr);
+      if (!Address(dest.destination_address).isValid()) {
+        UIUtil.showSnackbar(AppLocalization.of(context).qrInvalidAddress, context);
+      } else if (rawAmount == null || rawAmount > StateContainer.of(context).wallet.accountBalance) {
+        UIUtil.showSnackbar(AppLocalization.of(context).insufficientBalance, context);
+      } else if (rawAmount < BigInt.from(10).pow(24)) {
+        UIUtil.showSnackbar(AppLocalization.of(context).minimumSend.replaceAll("%1", "0.000001"), context);
+      } else {
+        // Is valid, proceed
+        Sheets.showAppHeightNineSheet(
+          context: context,
+          widget: SendConfirmSheet(
+                    amountRaw: rawAmountStr,
+                    destination: dest.destination_address,
+                    manta: manta,
+                    paymentRequest: paymentRequest
+          )
+        );
+      }    
+  }`
 
 
 }

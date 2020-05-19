@@ -1,5 +1,42 @@
 <div class="container">
-    <h2>¿Cómo maneja el almacenamiento local?</h2>
+    <h1>Almacenamiento en Natrium</h1>
+    <hr>
+    <p>El almacenamiento en Natrium es inusual, teniendo en cuenta que su propósito principal es el uso de
+        transacciones de diferentes tipos de criptomonedas. Este servicio es proporcionado por
+        <a href="https://appia.co/developers.html">Manta,</a> un protocolo de pagos abierto que se comunica
+        con el ecosistema de Appia para el manejo de pagos de <i>cryptocurency.</i> Por dicha razón, Natrium no hace
+        uso de almacenamiento externo; la gestión de las transacciones son realizadas en su completitud por Manta.
+        El trabajo de Natrium es proveer entonces un protocolo de comunicación cifrado y seguro para el uso de
+        transacciones, como se logra ver en el siguiente snippet de código de una clase utilizada por Manta:
+    </p>
+    <pre>
+        <code [highlight]="mantaUtilCode" [lineNumbers]="true" ></code>
+    </pre>
+    <pre>
+        <code [highlight]="mantaClassCode" [lineNumbers]="true" [languages]="languages" ></code>
+    </pre>
+    <p>Natrium realiza el manejo de los strings de identificación de billeteras a través del uso de llaves públicas
+        y privadas, para posteriormente procesar la transacción a través de Manta:
+    </p>
+    <pre>
+        <code [highlight]="mantaPaymentCode" [lineNumbers]="true" [languages]="languages" ></code>
+    </pre>
+    <p>Siendo así, con el fin de garantizar mayor seguridad para el usuario, Natrium hace uso exclusivo
+        del almacenamiento local para la gestión de transacciones. Al crear una <i>billetera,</i> se crea una string
+        de 24 palabras que se utiliza como llave para poder acceder en un futuro a la cuenta, como se evidencia
+        a continuación:
+    </p>
+    <img height="auto" class="img-thumbnail" src={{register1Image.url}}>
+    <img height="auto" class="img-thumbnail" src={{register2Image.url}}>
+    <hr>
+    <p>De igual manera, la aplicación le advierte al usuario que esta información se encuentra localmente en el
+        dispositivo, de tal manera que si cierra sesión o desinstala la app debe proveer manualmente dicha llave:
+    </p>
+    <img height="auto" class="img-thumbnail" src={{logoutImage.url}}>
+    <img height="auto" class="img-thumbnail" src={{loginImage.url}}>
+    <hr>
+
+    <h2>¿Entonces, Cómo maneja el almacenamiento local?</h2>
     <hr>
     <div class="shared_preferences">
         <h3>
@@ -66,8 +103,9 @@
             <a target="_blank" rel="noopener noreferrer"
                 href="https://developer.apple.com/documentation/security/keychain_services#//apple_ref/doc/uid/TP30000897-CH203-TP1">keychain</a>,
             mientras que para Android utiliza <a
-                href="https://developer.android.com/training/articles/keystore.html">KeyStore</a>, la cual se encuentra disponible únicamente desde
-                Android 4.3 (API nivel 18).
+                href="https://developer.android.com/training/articles/keystore.html">KeyStore</a>, la cual se encuentra
+            disponible únicamente desde
+            Android 4.3 (API nivel 18).
         </p>
         <p>
             El caso en que lo usan es el siguiente:

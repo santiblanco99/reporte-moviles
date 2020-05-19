@@ -8,11 +8,11 @@
         de la aplicación, Natrium se encargó de ofrecer varias opciones, las cuales son las siguientes:
     </p>
     <div class="row">
-        <div class="col-md-4 col-sm-12">
-            <img height="auto" class="img-thumbnail" src={{themePhoto.url}} alt="{{themePhoto.name}}">
+        <div *ngFor="let themePhoto of themePhotosList" class="col-md-4 col-sm-12">
+            <h3>Tema {{themePhoto.name}}</h3>
+            <img height="auto" class="img-thumbnail" src={{themePhoto.url}} alt="{{themePhoto.name + '_photo'}}">
         </div>
-        <div class="col-md-8 col-sm-12">
-            <!-- Terminal -->
+        <!-- <div class="col-md-8 col-sm-12">
             <div class="terminal">
                 <pre>static const brightBlue = Color(0xFFA3CDFF); <span class="comment">// Natrium</span></pre>
                 <pre>static const blueishGreen = Color(0xFF61C6AD); <span class="comment">// Titanium</span> </pre>
@@ -20,9 +20,66 @@
                 <pre>static const blue = Color(0xFF4A90E2); <span class="comment">// Neptium</span> </pre>
                 <pre>static const teal = Color(0xFF75F3FF); <span class="comment">// Thorium</span> </pre>
             </div>
-
+        </div> -->
+    </div>
+    <hr>
+    <h3>En términos de desempeño, ¿Cómo se comporta la aplicación al cambiar de tema?</h3>
+    <p>
+        El comportamiento de la aplicación cuando se cambia el tema de la aplicación es normal. Tal y como se observa en
+        la siguiente animación, a pesar de que algunos frames
+        se pierden mientras la aplicación cambia el tema, el comportamiento del raster y el UI se mantiene estable.
+    </p>
+    <img class="img-thumbnail" src={{changingThemeGif.url}} alt="{{changingThemeGif.name + '_photo'}}">
+    <h3>A nivel de código, ¿Cómo manejan el tema de la aplicación?</h3>
+    <p>
+        Dentro del archivo <span class="italic">settings_drawer</span> se tiene el siguiente fragmento de código, el
+        cual despliegua un diálogo para que el usuario pueda escoger
+        qué tema quiere usar. Una vez el usuario haga su selección, verifica que la opción seleccionada no sea la que ya
+        se encontraba activa. Posteriormente, guarda la selección
+        en las <span class="italic">shared preferences</span> y llama a un método de la clase StateContainer que
+        simplemente es el encargado de cambiar el estado de las opciones
+        que afectan a toda la aplicación, tales como el idioma, el tema o la moneda.
+    </p>
+    <pre>
+        <code [highlight]="changeThemeCode" [lineNumbers]="true"></code>
+    </pre>
+    <hr>
+    <h2>Elección de idiomas</h2>
+    <p>
+        De forma similar al tema de la aplicación, el usuario tiene la oportunidad de cambiar el idioma. A nivel de
+        código, se usa la librería
+        <a target="_blank" rel="noopener noreferrer"
+            href="https://pub.dev/packages/intl_translation">intl_translation</a>. En total, la aplicación
+        provee un total de 27 idiomas y el idioma por defecto del dispositivo. Entre la basta lista de idiomas, se
+        encuentra el inglés, el español, portugués,
+        ruso, árabe, chino tradicional y simple, francés, alemán, etc. Adicionalmente, para idiomas que cuya dirección
+        de lectura es diferente a la nuestra,
+        la librería permite cambiar la dirección en la que la aplicación muestra sus elementos.
+    </p>
+    <div class="row">
+        <div class="col-6">
+            <p>Alemán</p>
+            <img class="img-thumbnail" src={{languageDe.url}} alt="{{languageDe.name + '_photo'}}">
+        </div>
+        <div class="col-6">
+            <p>Árabe</p>
+            <img class="img-thumbnail" src={{languageAr.url}} alt="{{languageAr.name + '_photo'}}">
         </div>
     </div>
+    <h3>A nivel de código, ¿Cómo manejan el lenguaje de la aplicación?</h3>
+    <p>
+        De forma similar al tema, dentro de <span class="italic">settings_drawer</span> cuentan con un diálogo en el que
+        el usuario selecciona el idioma, luego verifica que no sea igual al lenguaje actual. Posteriormente, guarda la
+        selección
+        a <span class="italic">shared preferences</span> y llama a un método de la clase StateContainer. Sin embargo,
+        cabe resaltar que
+        la librería genera un archivo por cada lenguaje agregado. Por lo tanto, dependiendo del índice del lenguaje que
+        se use, la librería se
+        encarga de mostrar el idioma en cuestión.
+    </p>
+    <pre>
+        <code [highlight]="changeLanguageCode" [lineNumbers]="true"></code>
+    </pre>
     <hr>
     <h2>Elección de estilos de texto</h2>
     <p>
@@ -38,8 +95,25 @@
         <div class="col-md-4 col-sm-12">
             <img height="auto" class="img-thumbnail" src={{natriumFontsPhoto.url}} alt="{{natriumFontsPhoto.name}}">
         </div>
-        <div class="col-md-8 col-sm-12">
-
+    </div>
+    <h3>Ejemplo de fuente Nunito Sans</h3>
+    <p>En este caso, se muestra la misma fuente, en el cual únicamente varía el tamaño y el groser del texto.</p>
+    <div class="row">
+        <div class="col-6">
+            <img height="auto" class="img-thumbnail" src={{natriumFontNunitoSansExamplePhoto.url}}
+                alt="{{natriumFontNunitoSansExamplePhoto.name}}">
+        </div>
+        <div class="col-6">
+            <pre>
+                <code [highlight]="natriumFontNunutoSansExampleCode" [lineNumbers]="true"></code>
+            </pre>
         </div>
     </div>
+    <h2>Accesibilidad</h2>
+    <p>
+        Una vez hemos observado cómo manejan los colores y el idioma de la aplicación, podemos afirmar que Natrium Nano
+        Wallet se preocupa en gran medida por la accesibilidad de su aplicación. Teniendo en cuenta el contexto que
+        rodea el negocio, nos parece una muy buena idea que la accesibilidad sea primordial, pues la criptomoneda Nano
+        se encuentra en esfuerzos por volverse una moneda internacional con al acceso a todo el mundo.
+    </p>
 </div>

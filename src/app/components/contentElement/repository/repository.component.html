@@ -71,6 +71,10 @@
                     </mat-card-header>
                     <mat-card-content>
                         <p>{{dep.desc}}</p>
+                        <p>Snippet de código ejemplificando el uso de la dependencia en la aplicacion:</p>
+                        <pre>
+                            <code [highlight]="findCodeById(dep.id).code" [lineNumbers]="true" [languages]="languages" ></code>
+                        </pre>
                     </mat-card-content>
                 </mat-card>
                 <mat-divider></mat-divider>

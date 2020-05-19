@@ -28,13 +28,86 @@
             <a target="_blank" rel="noopener noreferrer" href="https://github.com/appditto/natrium_wallet_flutter">
                 <button mat-raised-button color="warm">Github</button>
             </a>
-            <a target="_blank" rel="noopener noreferrer" href="https://play.google.com/store/apps/details?id=co.banano.natriumwallet&hl=es_CO">
+            <a target="_blank" rel="noopener noreferrer"
+                href="https://play.google.com/store/apps/details?id=co.banano.natriumwallet&hl=es_CO">
                 <button mat-raised-button color="warm">PlayStore</button>
             </a>
-            <a target="_blank" rel="noopener noreferrer" href="https://apps.apple.com/us/app/natrium-nano-wallet/id1451425707">
+            <a target="_blank" rel="noopener noreferrer"
+                href="https://apps.apple.com/us/app/natrium-nano-wallet/id1451425707">
                 <button mat-raised-button color="warm">App Store</button>
             </a>
-
+        </div>
+        <hr>
+        <div class="col-12">
+            <h2>Arquitectura de la aplicación</h2>
+            <p>
+                En cuanto a la arquitectura por la que optaron contruir la app, identificamos dos principales patrones
+                de arquitectura que implementaron.
+            </p>
+            <ol>
+                <li>
+                    <div class="container">
+                        <h3>Modelo-Vista-Controlador (MVC) y Singletons</h3>
+                        <p>Este patrón separa los datos y la lógica de la aplicación, mientras que se designa un módulo
+                            encargado de establecer la comunicación entre las otras dos partes.</p>
+                        <img src="https://hackernoon.com/drafts/126z19ld.png" alt="MVC patter image">
+                        <p>
+                            Observando la aplicación, este comportamiento se adopta a lo largo de todo el código, desde
+                            la definición del estado de la aplicación (colores usados, idioma elegido, tipo de moneda)
+                            hasta la persistencia local de la información requerida para el correcto funcionamiento de
+                            la app. A lo largo de este reporte, se evidenciará el patrón en diferentes ejemplos
+                            mostrados. Como ejemplo, se muestra el código que se ejecuta y el flujo de datos para
+                            agregar un contacto nuevo.
+                        </p>
+                        <p>
+                            Primero, va a las opciones y selecciona la opción Contactos, luego, oprime Añadir Contacto.
+                            El usuario digita el nombre y el identificador de la billetera del contacto.
+                        </p>
+                        <img height="auto" class="img-thumbnail-custom" src={{addContactGif.url}}
+                            alt="{{addContactGif.name + '_photo'}}">
+                        <p>
+                            Segundo, el
+                            evento
+                            <span class="italic">onPressed</span> es detectado y llama a la instancia <span
+                                class="italic">DBHelper</span> creada desde el <span
+                                class="italic">ServiceLocator</span> (el cual es un servicio que facilita la creación de
+                            Singletons)
+                        </p>
+                        <pre>
+                            <code [highlight]="singletonCode" [lineNumbers]="true"></code>
+                        </pre>
+                        <p>
+                            Tercero, el método <span class="italic">saveContact</span> de la instancia de <span
+                                class="italic">DBHelper</span> se encarga de insertar el contacto localmente en el
+                            dispositivo. Finalmente, retorna el mensaje de éxito a quien realizó el llamado.
+                        </p>
+                        <pre>
+                                <code [highlight]="saveContactsCode" [lineNumbers]="true"></code>
+                            </pre>
+                    </div>
+                </li>
+                <li>
+                    <div class="container">
+                        <h3>Event driven pattern</h3>
+                        <p>Este patrón se basa en la producción, detección y consumo de eventos por medio de un bus.</p>
+                        <img src="https://miro.medium.com/max/2852/1*ICQkcUULUpt9EUYl_W9Omw.png"
+                            alt="Bus driven pattern">
+                        <p>
+                            Respecto al código de la aplicación, se utiliza la librería <a target="_blank"
+                                rel="noopener noreferrer" href="https://pub.dev/packages/event_taxi">event_taxi</a> para
+                            manejar eventos de forma local. Dentro del archivo <span
+                                class="italic">lib/appstate_container.dart</span>
+                            se inicializa el bus de eventos y a lo largo de diferentes partes de la app se consumen. El
+                            código de la inicialización del bus se muestra a continuación. Por ejemplo, ellos crean un
+                            evento en el que se registra si la cuenta actual del usuario ha sido modificada o eliminada.
+                            Dependiendo del caso, se cambia el estado de la aplicación.
+                        </p>
+                        <pre>
+                                <code [highlight]="eventDrivenInitialization" [lineNumbers]="true"></code>
+                            </pre>
+                    </div>
+                </li>
+            </ol>
         </div>
     </div>
 </div>

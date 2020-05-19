@@ -10,7 +10,7 @@
     <div class="row">
         <div *ngFor="let themePhoto of themePhotosList" class="col-md-4 col-sm-12">
             <h3>Tema {{themePhoto.name}}</h3>
-            <img height="auto" class="img-thumbnail" src={{themePhoto.url}} alt="{{themePhoto.name + '_photo'}}">
+            <img height="auto" class="img-thumbnail-custom" src={{themePhoto.url}} alt="{{themePhoto.name + '_photo'}}">
         </div>
         <!-- <div class="col-md-8 col-sm-12">
             <div class="terminal">
@@ -29,7 +29,7 @@
         la siguiente animación, a pesar de que algunos frames
         se pierden mientras la aplicación cambia el tema, el comportamiento del raster y el UI se mantiene estable.
     </p>
-    <img class="img-thumbnail" src={{changingThemeGif.url}} alt="{{changingThemeGif.name + '_photo'}}">
+    <img class="img-thumbnail-custom" src={{changingThemeGif.url}} alt="{{changingThemeGif.name + '_photo'}}">
     <h3>A nivel de código, ¿Cómo manejan el tema de la aplicación?</h3>
     <p>
         Dentro del archivo <span class="italic">settings_drawer</span> se tiene el siguiente fragmento de código, el
@@ -59,11 +59,11 @@
     <div class="row">
         <div class="col-6">
             <p>Alemán</p>
-            <img class="img-thumbnail" src={{languageDe.url}} alt="{{languageDe.name + '_photo'}}">
+            <img class="img-thumbnail-custom" src={{languageDe.url}} alt="{{languageDe.name + '_photo'}}">
         </div>
         <div class="col-6">
             <p>Árabe</p>
-            <img class="img-thumbnail" src={{languageAr.url}} alt="{{languageAr.name + '_photo'}}">
+            <img class="img-thumbnail-custom" src={{languageAr.url}} alt="{{languageAr.name + '_photo'}}">
         </div>
     </div>
     <h3>A nivel de código, ¿Cómo manejan el lenguaje de la aplicación?</h3>
@@ -93,14 +93,14 @@
     </p>
     <div class="row">
         <div class="col-md-4 col-sm-12">
-            <img height="auto" class="img-thumbnail" src={{natriumFontsPhoto.url}} alt="{{natriumFontsPhoto.name}}">
+            <img height="auto" class="img-thumbnail-custom" src={{natriumFontsPhoto.url}} alt="{{natriumFontsPhoto.name}}">
         </div>
     </div>
     <h3>Ejemplo de fuente Nunito Sans</h3>
     <p>En este caso, se muestra la misma fuente, en el cual únicamente varía el tamaño y el groser del texto.</p>
     <div class="row">
         <div class="col-6">
-            <img height="auto" class="img-thumbnail" src={{natriumFontNunitoSansExamplePhoto.url}}
+            <img height="auto" class="img-thumbnail-custom" src={{natriumFontNunitoSansExamplePhoto.url}}
                 alt="{{natriumFontNunitoSansExamplePhoto.name}}">
         </div>
         <div class="col-6">

@@ -1,0 +1,129 @@
+<div class="container">
+    <p>
+        La aplicación requiere de varios permisos para ofrecer features interesantes al usuario. A continuación se
+        realiza una lista de los
+        permisos que se le solicitan al dispositivo
+    </p>
+    <ul>
+        <li>
+            <div class="container">
+                <h3>Acceso a internet</h3>
+                <p>
+                    En Android, se requiere del siguiente permiso para que el dispositivo pueda acceder a
+                    funcionalidades online, tales como recibir y enviar Nano's, ver el historial de transacciones de la
+                    billetera, entre otros:
+                </p>
+                <pre>
+                    <code [highlight]="androidInternetPermission" [lineNumbers]="true"></code>
+                </pre>
+            </div>
+        </li>
+        <li>
+            <div class="container">
+                <h3>Acceso a reconocimiento por huella / FaceID</h3>
+                <p>
+                    En Android, se añadió el permiso para que el dispositivo pueda verificar la identidad de la persona
+                    antes de realizar un envío de Nano's o pueda cambiar la contraseña de acceso a la cuenta por medio
+                    de huella dactilar:
+                </p>
+                <pre>
+                    <code [highlight]="androidFingerprintPermission" [lineNumbers]="true"></code>
+                </pre>
+                <p>
+                    En iOS, se añadió el permiso para que el dispositivo pueda verificar la identidad de la persona
+                    antes de realizar un envío de Nano's o pueda cambiar la contraseña de acceso a la cuenta por medio
+                    de FaceID:
+                </p>
+                <pre>
+                    <code [highlight]="iosFaceIdPermission" [lineNumbers]="true"></code>
+                </pre>
+                <p>
+                    Ahora bien, para lograr hacer el mejor uso a esta funcionalidad, utilizan la librería externa
+                    <a target="_blank" rel="noopener noreferrer"
+                        href="https://pub.dev/packages/local_auth">local_auth</a>
+                    para realizar autenticación biométrica. La parte del código en que llaman a la librería se encuentra
+                    a continuación. En resumen, el primer método comprueba si el dispositivo contiene autenticación
+                    biométrica, ya sea por huella o reconocimiento facial. El segundo método permite usar la librería ya
+                    mencionada para realizar la autenticación.
+                </p>
+                <pre>
+                    <code [highlight]="biometricAuthCode" [lineNumbers]="true"></code>
+                 </pre>
+                <p>Muestra del uso por parte del usuario:</p>
+                <img height="auto" class="img-thumbnail-custom" src={{fingerprintGif.url}}
+                    alt="{{fingerprintGif.name}}">
+            </div>
+        </li>
+        <li>
+            <div class="container">
+                <h3>Acceso a la cámara</h3>
+                <p>
+                    La aplicación utiliza la cámara cuando el usuario desea escanear un código, el cual procesa por
+                    medio de la librería
+                    <a target="_blank" rel="noopener noreferrer"
+                        href="https://pub.dev/packages/barcode_scan">barcode_scan</a>.
+                </p>
+
+                <pre>
+                    <code [highlight]="photoPermission" [lineNumbers]="true"></code>
+                 </pre>
+                <p>
+                    Como se puede observar en el código, se sobreentiende que los códigos contienen un texto con la
+                    semilla de la billetera que se escanea. El ejemplo es sólo 1 de otros escaneos que se tienen en la
+                    aplicación.
+                </p>
+                <pre>
+                    <code [highlight]="scanPhotoCode" [lineNumbers]="true"></code>
+                 </pre>
+                <p>Muestra del uso por parte del usuario:</p>
+                <img height="auto" class="img-thumbnail-custom" src={{scanPhotoGif.url}} alt="{{scanPhotoGif.name}}">
+            </div>
+        </li>
+        <li>
+            <div class="container">
+                <h3>Acceso al almacenamiento externo</h3>
+                <p>
+                    Android necesita estos permisos para tener total acceso al acceso externo, la media visual y aural.
+
+                </p>
+                <pre>
+                    <code [highlight]="externalStoragePermission" [lineNumbers]="true"></code>
+                 </pre>
+                <p>En propias palabras de la documentación de Android:</p>
+                <blockquote cite="Android developers">
+                    This is a soft restricted permission which cannot be held by an app it its full form until the
+                    installer on record whitelists the permission. Specifically, if the permission is whitelisted the
+                    holder app can access external storage and the visual and aural media collections while if the
+                    permission is not whitelisted the holder app can only access to the visual and aural medial
+                    collections. Also the permission is immutably restricted meaning that the whitelist state can be
+                    specified only at install time and cannot change until the app is installed.
+                    Protection level: dangerous
+                </blockquote>
+            </div>
+        </li>
+        <li>
+            <div class="container">
+                <h3>Permiso para poder acceder a la funcionalidad nativa de vibración del dispositivo</h3>
+                <p>
+                    Android necesita estos permisos para poder acceder a los sensores de vibración del celular. Dentro
+                    de la aplicación, esto se usa
+                    para usar el motor de Haptic y mejorar la experiencia del usuario mientras hace uso de la app. Para
+                    conseguir esto, hace uso de la librería
+                    <a target="_blank" rel="noopener noreferrer" href="https://pub.dev/packages/vibrate">vibrate</a> en
+                    la clase <span class="italic">lib/util/hapticutil.dart</span>.
+                </p>
+                <pre>
+                    <code [highlight]="vibratePermission" [lineNumbers]="true"></code>
+                 </pre>
+                <p>
+                    Un ejemplo de su uso se muestra a continuación, en el cual, primero, se verifica si el dispositivo
+                    tiene la funcionalidad disponible (en caso de ser iOS) y luego realiza el <span class="italic">feedback</span> del input
+                    recibido por el usuario.
+                </p>
+                <pre>
+                    <code [highlight]="vibrateCode" [lineNumbers]="true"></code>
+                 </pre>
+            </div>
+        </li>
+    </ul>
+</div>

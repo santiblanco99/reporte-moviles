@@ -7,82 +7,153 @@
         o la experiencia del usuario.
     </p>
     <hr>
-    <h2>En caso de no tener internet y encontrarse en la página principal</h2>
-    <p>
-        Si el usuario no cuenta con conexión a internet, la aplicación no detecta el estado de la conexión. Por otro
-        lado,
-        trata de hacer el llamado a algún servicio una y otra vez sin notificar al usuario.
-    </p>
+    <ol>
+        <li>
+            <h2>En caso de no tener internet y encontrarse en la página principal</h2>
+            <p>
+                Si el usuario no cuenta con conexión a internet, la aplicación no detecta el estado de la conexión. Por
+                otro
+                lado,
+                trata de hacer el llamado a algún servicio una y otra vez sin notificar al usuario.
+            </p>
 
-    <div class="row">
-        <div class="col-12">
-            <p>
-                La siguiente imagen revela cómo la aplicación se queda cargando la información:
-            </p>
-        </div>
-        <div class="col-12">
-            <img style="max-width: 500px;" class="img-thumbnail-custom" src={{noConnectionOnHomeFirstPhoto.url}}
-                alt="{{noConnectionOnHomeFirstPhoto.name}}">
-        </div>
-        <div class="col-12">
-            <p>
-                Si observamos el <span class="italic">performance overlay</span>, nos damos cuenta cómo el
-                <span class="italic"> raster thread</span> (hilo que corre en el CPU) y el <span class="italic">UI
-                    thread</span>
-                se encuentran en constante trabajo debido a que la interfaz está siendo constantemente actualizada:
-            </p>
-        </div>
-        <div class="col-12">
-            <img style="max-width: 500px;" class="img-thumbnail-custom" src={{noConnectionOnHomeForthPhoto.url}}
-                alt="{{noConnectionOnHomeForthPhoto.name}}">
-        </div>
-        <div class="col-12">
-            <p>
-                La siguiente imagen revela cómo el rendimiento de la aplicación se ve afectada, pues se registran picos
-                contínuos en el uso de memoria
-                del celular debido a la constante actualización de la interfaz y al intentar acceder a los servicios de
-                internet constantemente:
-            </p>
-        </div>
-        <div class="col-12">
-            <img width="100%" class="img-thumbnail" src={{noConnectionOnHomeSecondPhoto.url}}
-                alt="{{noConnectionOnHomeSecondPhoto.name}}">
-        </div>
-        <div class="col-12">
-            <p>
-                La siguiente imagen revela los constantes llamados fallidos a los servicios que provee Natrium con el
-                fin de recuperar
-                la información necesaria para el correcto funcionamiento de la aplicación:
-            </p>
-        </div>
-        <div class="col-12">
-            <img style="max-width: 500px;" class="img-thumbnail" src={{noConnectionOnHomeThirdPhoto.url}}
-                alt="{{noConnectionOnHomeThirdPhoto.name}}">
-        </div>
-
-        <hr>
-
-        <div class="col-12">
-            <h2>¿Qué se sugiere hacer para atacar este problema?</h2>
-            <p>
-                Actualmente, existe un paquete de Dart llamado <a target="_blank" rel="noopener noreferrer"
-                    href="https://pub.dev/packages/connectivity">connectivity</a> que permite
-                conocer el estado actual de conexión a internet del dispositivo móvil por medio de streams. De ese modo,
-                la aplicación podría detectar en qué
-                momento el usuario pierde conexión a internet, notificarle del estado y dejar de hacer llamados a la API
-                para no consumir memoria innecesariamente. Cabe resaltar que se realizó un pull request respecto a esta problemática,
-                el cual se encuentra en el inicio de esta página. Según la documentación del plugin, este es un ejemplo básico:
-            </p>
-            <!-- Terminal -->
-            <pre>
-                <code [highlight]="connectivityCode" [lineNumbers]="true"></code>
+            <div class="row">
+                <div class="col-12">
+                    <p>
+                        La siguiente imagen revela cómo la aplicación se queda cargando la información:
+                    </p>
+                    <img style="max-width: 500px;" class="img-thumbnail-custom" src={{noConnectionOnHomeFirstPhoto.url}}
+                        alt="{{noConnectionOnHomeFirstPhoto.name}}">
+                </div>
+                <div class="col-12">
+                    <p>
+                        Si observamos el <span class="italic">performance overlay</span>, nos damos cuenta cómo el
+                        <span class="italic"> raster thread</span> (hilo que corre en el CPU) y el <span
+                            class="italic">UI
+                            thread</span>
+                        se encuentran en constante trabajo debido a que la interfaz está siendo constantemente
+                        actualizada:
+                    </p>
+                    <img style="max-width: 500px;" class="img-thumbnail-custom" src={{noConnectionOnHomeForthPhoto.url}}
+                        alt="{{noConnectionOnHomeForthPhoto.name}}">
+                </div>
+                <div class="col-12">
+                    <p>
+                        La siguiente imagen revela cómo el rendimiento de la aplicación se ve afectada, pues se
+                        registran picos
+                        contínuos en el uso de memoria
+                        del celular debido a la constante actualización de la interfaz y al intentar acceder a los
+                        servicios de
+                        internet constantemente:
+                    </p>
+                    <img width="100%" class="img-thumbnail" src={{noConnectionOnHomeSecondPhoto.url}}
+                        alt="{{noConnectionOnHomeSecondPhoto.name}}">
+                </div>
+                <div class="col-12">
+                    <p>
+                        La siguiente imagen revela los constantes llamados fallidos a los servicios que provee Natrium
+                        con el
+                        fin de recuperar
+                        la información necesaria para el correcto funcionamiento de la aplicación:
+                    </p>
+                    <img style="max-width: 500px;" class="img-thumbnail" src={{noConnectionOnHomeThirdPhoto.url}}
+                        alt="{{noConnectionOnHomeThirdPhoto.name}}">
+                </div>
+                <div class="col-12">
+                    <p>
+                        El fragmento de código que muestra por qué la aplicación adopta este comportamiento se muestra a
+                        continuación. Primero, una vez el primer llamado a un servicio
+                        falle, se utiliza la libería <a target="_blank" rel="noopener noreferrer"
+                            href="https://pub.dev/packages/event_taxi">event_taxi</a> para notificarle a los
+                        suscriptores de un
+                        bus en particular que
+                        el dispositivo se desconectó. Luego, llama al método <span
+                            class="italic">initCommunication</span> que,
+                        a su vez, llama al método <span class="italic">reconnectService</span> (el cual lo único que
+                        hace es
+                        esperar tres segundos para, posteriormente, llamar de nuevo a <span
+                            class="italic">initCommunication</span> ). Después, intenta establecer una conexión con el
+                        servidor,
+                        si falla, vuelve a emitir el mensaje de desconexión para repetir el ciclo recién explicado.
+                    </p>
+                    <pre>
+                <code [highlight]="currentConnectivityBruteCheckFirst" [lineNumbers]="true"></code>
             </pre>
-            <!-- <div class="terminal">
+                    <pre>
+                <code [highlight]="currentConnectivityBruteCheckSecond" [lineNumbers]="true"></code>
+            </pre>
+                </div>
+
+                <hr>
+
+                <div class="col-12">
+                    <h2>¿Qué se sugiere hacer para atacar este problema?</h2>
+                    <p>
+                        Actualmente, existe un paquete de Dart llamado <a target="_blank" rel="noopener noreferrer"
+                            href="https://pub.dev/packages/connectivity">connectivity</a> que permite
+                        conocer el estado actual de conexión a internet del dispositivo móvil por medio de streams. De
+                        ese modo,
+                        la aplicación podría detectar en qué
+                        momento el usuario pierde conexión a internet, notificarle del estado y dejar de hacer llamados
+                        a la API
+                        para no consumir memoria innecesariamente. Cabe resaltar que se realizó un pull request respecto
+                        a esta
+                        problemática,
+                        el cual se encuentra en el inicio de esta página. Según la documentación del plugin, este es un
+                        ejemplo
+                        básico:
+                    </p>
+                    <pre>
+                        <code [highlight]="connectivityCode" [lineNumbers]="true"></code>
+                    </pre>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="container">
+                <h2>En caso de no tener internet y tratar de acceder a la política de privacidad</h2>
+                <p>Debido a que trata de cargar las políticas de privacidad desde otra página, si el usuario no cuenta
+                    con conexión a internet y la página no se ha guardado en el caché, se presenta un error "Webpage not
+                    available".
+                </p>
+                <img style="max-width: 500px;" class="img-thumbnail-custom" src={{errorPrivacyPolicyPhoto.url}}
+                    alt="{{errorPrivacyPolicyPhoto.name}}">
+                <h2>¿Qué se sugiere hacer para atacar este problema?</h2>
+                <p>
+                    De forma similar al problema anterior, se sugiere obtener el estado de la conexión a internet por
+                    medio de la libería <a target="_blank" rel="noopener noreferrer"
+                        href="https://pub.dev/packages/connectivity">connectivity</a>. Luego, únicamente realizará el
+                    redireccionamiento a la página de política de privacidad en caso de que tenga conexión o que la
+                    misma se haya descargado en el caché. El código de cómo están abriendo las url's externas se muestra
+                    a continuación. En este, podemos observar cómo, en ningún instante, se tiene en cuenta la conexión
+                    del usuario:
+                </p>
+
                 <pre>
-                    {{this.connectivityCode}}
+                    <code [highlight]="privacyPolicyCode" [lineNumbers]="true"></code>
                 </pre>
-            </div> -->
-        </div>
-    </div>
+            </div>
+        </li>
+        <li>
+            <div class="container">
+                <h2>En caso de no conceder los permisos de cámara o acceso a archivos</h2>
+                <p>
+                    En base a las pruebas efectuadas sobre la aplicación, nos dimos cuenta que si el usuario decide
+                    negar los permisos de acceso a cámara y/o acceso a archivos y, posteriormente, cliquea la opción
+                    "Deny and don't ask again", la aplicación no volverá a funcionar de forma correcta. Esto se debe a
+                    que en ningún momento se controla el caso recién descrito. Por lo tanto, este comportamiento va en
+                    contra de las buenas prácticas de programación móvil, pues el usuario debería ser notificado de que
+                    no podrá acceder a las funcionalidades de forma correcta hasta que decida aceptar los permisos
+                    requeridos. Video que muestra el comportamiento inusual:
+                </p>
+
+                <img style="max-width: 500px;" class="img-thumbnail-custom" src={{denyPermissionsErrorCameraFile.url}}
+                    alt="{{denyPermissionsErrorCameraFile.name}}">
+                <p>En la sección de Permisos de la aplicación, se adjuntaron ejemplos en donde se utilizan estas
+                    funcionalidades y, en las mismas, se observa cómo no se tiene en cuenta el caso de que el usuario
+                    haya decidido no aceptar los permisos</p>
+            </div>
+        </li>
+    </ol>
     <hr>
 </div>

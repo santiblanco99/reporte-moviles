@@ -4,6 +4,8 @@ import { HtmlParser } from '@angular/compiler';
 import {Repository} from "../models/repository";
 import { PullRequest } from '../models/pullRequest';
 import { PullRequestComment } from '../models/pullRequestComment';
+import { Author } from '../models/author';
+import { AuthorCommits } from '../models/authorCommits';
 
 @Injectable({
   providedIn: 'root'
@@ -34,5 +36,9 @@ export class RepositoryService {
 
   getPullRequestComments(){
     return this.http.get<PullRequestComment[]>("https://api.github.com/repos/appditto/natrium_wallet_flutter/issues/72/comments");
+  }
+
+  getCommitsbyAuthor(){
+    return this.http.get<AuthorCommits[]>("https://api.github.com/repos/appditto/natrium_wallet_flutter/stats/contributors");
   }
 }

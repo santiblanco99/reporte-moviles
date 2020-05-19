@@ -1,6 +1,8 @@
 <div *ngIf="dataReady">
     <div class="container">
-        <a class = "title" href="https://github.com/appditto/natrium_wallet_flutter"><h1>{{repository.description}}</h1></a>
+        <a class="title" href="https://github.com/appditto/natrium_wallet_flutter">
+            <h1>{{repository.description}}</h1>
+        </a>
         <h2>Datos y Estadísticas del Repositorio</h2>
         <mat-grid-list cols="2" rowHeight="15rem">
             <mat-grid-tile colspan="1">
@@ -9,9 +11,10 @@
                         <mat-card-title>Datos Generales</mat-card-title>
                     </mat-card-header>
                     <mat-card-content>
-                        <p>Nombre: <a class = "links" href="https://github.com/appditto/natrium_wallet_flutter">{{repository.name}}</a></p>
-                        <p>Dueño: <a href= "https://github.com/appditto" class = "links">{{repository.owner.login}}</a></p>
-                        <p>Lenguaje: <a class = "links" href = "https://dart.dev/">{{repository.language}}</a></p>
+                        <p>Nombre: <a class="links"
+                                href="https://github.com/appditto/natrium_wallet_flutter">{{repository.name}}</a></p>
+                        <p>Dueño: <a href="https://github.com/appditto" class="links">{{repository.owner.login}}</a></p>
+                        <p>Lenguaje: <a class="links" href="https://dart.dev/">{{repository.language}}</a></p>
                         <p>Última vez actualizado: {{repository.updated_at.toLocaleDateString()}}</p>
                     </mat-card-content>
                 </mat-card>
@@ -30,6 +33,31 @@
                 </mat-card>
             </mat-grid-tile>
         </mat-grid-list>
+        <h2>Contribuidores</h2>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <span>Contribuidores del Repositorio</span>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <span *ngFor="let author of authorCommits">
+                <mat-card>
+                    <mat-card-header>
+                        <div mat-card-avatar class="example-header-image"
+                            style="background-image: url({{author.author.avatar_url}}); background-size: cover;">
+                        </div>
+                        <mat-card-title>{{author.author.login}}</mat-card-title>
+                        <mat-card-subtitle>COLLABORATOR</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>Número total de commits: {{author.total}}</p>
+                    </mat-card-content>
+                </mat-card>
+                <mat-divider></mat-divider>
+            </span>
+        </mat-expansion-panel>
+
         <!-- <mat-accordion> -->
         <mat-expansion-panel>
             <mat-expansion-panel-header>

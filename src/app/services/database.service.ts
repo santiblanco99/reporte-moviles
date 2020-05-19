@@ -9,6 +9,7 @@ import { environment } from '../../environments/environment';
   MODELS
 */
 import { Bug } from '../models/bug';
+import { AuthorCommits } from '../models/authorCommits';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,8 @@ export class DatabaseService {
 
   private dependencies: AngularFirestoreCollection;
 
+  private authorCommits: AngularFirestoreCollection;
+
   constructor(firestore: AngularFirestore) {
     this.repositoriesCollection = firestore.collection('repositories');
 
@@ -31,6 +34,8 @@ export class DatabaseService {
     this.bugsRepositoryCollection = firestore.collection('bugs', ref => ref.where('repository_id', '==', 'JC9m2GT33XF8nYFl30qZ'));
 
     this.bugsCollection = firestore.collection('bugs');
+
+    this.authorCommits = firestore.collection("authorCommits");
   }
 
   public getRespositories = (): Observable<any[]> => {
@@ -61,6 +66,17 @@ export class DatabaseService {
       return Promise.reject('You must specify an id');
     }
     return this.bugsCollection.doc(data.id).update(this.transformData(data));
+  }
+
+  /**
+   * authorCommits
+   */
+  public createAuthorCommit = (data: AuthorCommits): Promise<any> => {
+    return this.authorCommits.add(this.transformData(data));
+  }
+
+  public getAuthorCommits = (): Observable<any[]> => {
+    return this.authorCommits.snapshotChanges();
   }
 
   /**

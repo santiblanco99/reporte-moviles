@@ -80,6 +80,7 @@ import { ChartsModule } from 'ng2-charts';
 //cool code editor
 import { HighlightModule } from 'ngx-highlightjs';
 import { PermissionsComponent } from './components/contentElement/permissions/permissions.component';
+import { AsyncComponent } from './components/async/async.component';
 
 
 
@@ -101,6 +102,7 @@ import { PermissionsComponent } from './components/contentElement/permissions/pe
     BugDetailComponent,
     AddNewBugComponent,
     PermissionsComponent,
+    AsyncComponent,
   ],
   imports: [
     BrowserModule,

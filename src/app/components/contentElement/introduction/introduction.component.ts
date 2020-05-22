@@ -16,6 +16,11 @@ export class IntroductionComponent implements OnChanges {
     url: ''
   }
 
+  arquisoft: CustomImage = {
+    name: 'Github Design Comment',
+    url: ''
+  }
+
   singletonCode = `
   GetIt sl = GetIt.instance;
 
@@ -59,7 +64,9 @@ export class IntroductionComponent implements OnChanges {
         if (item.name.includes('add_contact_vid')) {
           this.addContactGif = { ...item };
           console.log(this.addContactGif);
-
+        }
+        if(item.name.includes('arquisoft')){
+          this.arquisoft = { ...item}
         }
       }
     }

@@ -41,23 +41,17 @@
         <div class="col-12">
             <h2>Arquitectura de la aplicación</h2>
             <p>
-                En cuanto a la arquitectura por la que optaron contruir la app, identificamos dos principales patrones
-                de arquitectura que implementaron.
+                En cuanto a la arquitectura de Natrium, encontramos tres patrones de diseño principales que prevalecen
+                a lo largo de la aplicación:
             </p>
             <ol>
                 <li>
                     <div class="container">
-                        <h3>Modelo-Vista-Controlador (MVC) y Singletons</h3>
-                        <p>Este patrón separa los datos y la lógica de la aplicación, mientras que se designa un módulo
-                            encargado de establecer la comunicación entre las otras dos partes.</p>
-                        <img src="https://hackernoon.com/drafts/126z19ld.png" alt="MVC patter image">
+                        <h3>Singletons y Service Locator</h3>
                         <p>
-                            Observando la aplicación, este comportamiento se adopta a lo largo de todo el código, desde
-                            la definición del estado de la aplicación (colores usados, idioma elegido, tipo de moneda)
-                            hasta la persistencia local de la información requerida para el correcto funcionamiento de
-                            la app. A lo largo de este reporte, se evidenciará el patrón en diferentes ejemplos
-                            mostrados. Como ejemplo, se muestra el código que se ejecuta y el flujo de datos para
-                            agregar un contacto nuevo.
+                            Observando la aplicación, este comportamiento se adopta en algunas secciones de código, por
+                            ejemplo, en el uso del almacenamiento de Natrium. A continuación se puede observar el uso
+                            de este patrón de diseño al añadir un contacto a la base de datos:
                         </p>
                         <p>
                             Primero, va a las opciones y selecciona la opción Contactos, luego, oprime Añadir Contacto.
@@ -79,7 +73,10 @@
                         <p>
                             Tercero, el método <span class="italic">saveContact</span> de la instancia de <span
                                 class="italic">DBHelper</span> se encarga de insertar el contacto localmente en el
-                            dispositivo. Finalmente, retorna el mensaje de éxito a quien realizó el llamado.
+                            dispositivo. Finalmente, retorna el mensaje de éxito a quien realizó el llamado. En este
+                            snippet de código también se puede evidenciar el uso de un Service Locator a través de la 
+                            librería get_it; en este escenario particular el service locator realiza la gestión de los singletons 
+                            como servicios utilizados en la función.
                         </p>
                         <pre>
                                 <code [highlight]="saveContactsCode" [lineNumbers]="true"></code>
@@ -110,6 +107,41 @@
                     </div>
                 </li>
             </ol>
+            <div class="container">
+                <h2>Prácticas utilizadas por los creadores de Natrium en Flutter</h2>
+                <p>A través de Github decidimos preguntarle directamente a los colaboradores de Natrium qué buenas
+                    prácticas de diseño utilizaban y recomendaban, las cuales de observan a continuación:
+                </p>
+                <ol>
+                    <li>
+                        <p><a href="https://pub.dev/packages/provider">Uso de Provider:</a> Aunque Natrium utiliza
+                            <i>Inherited Widget,</i> esta libreria actua como un wrapper de este componente y facilita
+                            el uso del estado global de la aplicación, por ejemplo, el tema o el idioma escogido.
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <a href="https://pub.dev/packages/mobx">mobx:</a> Esta librería facilita el manejo del estado
+                            para los demás aspectos de la aplicación, sobre todo acciones complejas. La librería es bastante
+                            intuitiva y permite una implementación sencilla de programación reactiva en Flutter.
+                        </p>
+                    </li>
+                    <li>
+                        <p><a href="https://pub.dev/packages/get_it">get_it:</a> Como se mencionó previamente, esta librería
+                            permite el uso del patrón de diseño <i>service locator</i> en Flutter. Natrium hace uso de este 
+                            patrón especialmente para el uso de singletons a lo largo de la apliacación.
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            Widgets propios: Natrium promueve la creación de widgets <i>custom</i>, para tener mayor control
+                            sobre el UI y el flujo del usuario al usar la aplicación.
+                        </p>
+                    </li>
+                </ol>
+                <img height="auto" class="img-thumbnail-custom" src={{arquisoft.url}}
+                            alt="{{arquisoft.name + '_photo'}}" class="imagen">
+            </div>
         </div>
     </div>
 </div>

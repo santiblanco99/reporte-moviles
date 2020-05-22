@@ -1,0 +1,63 @@
+<div class="container">
+    <h2>Comportamiento de la aplicación sin conexión a internet</h2>
+    <p>
+        Por último, decidimos analizar el comportamiento de la aplicación en cuanto a <span
+            class="italic">profiling</span>. Siendo así, presentamos un caso específico que nos pareción interesante y
+        el cual ya ha sido mencionado a lo largo del reporte.
+    </p>
+    <p>
+        Como resumen, identificamos que la aplicación se comportaba de forma inusual a nivel de memoria y consumo de
+        red. Por lo tanto, encontramos que, en el momento que el usuario perdía acceso a internet, se observaban picos
+        constantes del
+        <span class="italic">heap</span> del dispositivo. Así:
+    </p>
+
+    <img src={{memoryBeforeChangesImg.url}} alt={{memoryBeforeChangesImg.name}}>
+
+
+    <p>
+        Luego, observamos el comportamiento de la aplicación en cuanto a red para este caso específico. Así, pudimos
+        encontrar que, tal y como se mencionó en la sección de almacenamiento, la aplicación realizaba llamados
+        constantes a
+        la API de Natrium. En el siguiente video se observa el comportamiento:
+    </p>
+    <img src={{networkBeforeChangesVid.url}} alt={{networkBeforeChangesVid.name}}>
+
+
+    <p>
+        Por tanto, planteamos la siguiente hipótesis: los picos del uso de memoria se deben a que la aplicación hace
+        llamados constantes a la API para detectar internet.
+    </p>
+    <p>
+        Ahora, como mencionamos en el inicio de la página, se propuso una solución en la cual se esperaba que mejorara
+        el uso de memoria y confirmara la hipótesis planteada. Se omitirá el código de la solución, pues ya fue escrita
+        con anterioridad.
+    </p>
+    <p>
+        Sin embargo, una vez realizamos las pruebas con la solución planteada, encontramos que el problema no era la
+        forma en que la aplicación detectaba la conexión del celular, pues la memoria de la aplicación seguía
+        comportándose de forma similar. Inclusive, detectamos que el heap presentaba aún más picos en su uso. Pensamos
+        que esto se debe a la forma en que funciona la librería utilizada.
+    </p>
+    <img src={{memoryAfterChangesImg.url}} alt={{memoryAfterChangesImg.name}}>
+
+    <p>
+        Aún así, observamos que la solución implementada permitió mejorar la metodología en la cual se detectaba la
+        conexión a internet, pues ya no se hacían llamados fallidos a la API cada 3 segundos. Esto se observa en el
+        siguiente video:
+    </p>
+    <img src={{networkAfterChangesVid.url}} alt={{networkAfterChangesVid.name}}>
+
+    <hr>
+
+
+    <h2>Comportamiento de la aplicación cuando se cambia de billetera</h2>
+    <p>
+        Por último, realizamos la evaluación del <span class="italic">profiling</span> en el resto de la aplicación y
+        observamos que en la mayoría de casos la memoria se mantiene estable en 150k. Sin embargo, al realizar el cambio
+        de billetera, el uso de la memoria aumenta casi el doble. Pensamos que esto se debe a la los diferentes consumos
+        de la API y la actualización de la información mostrada en pantalla. En la siguiente imagen, se muestra lo
+        mencionado anteriormente:
+    </p>
+    <img src={{memoryOnChangingWalletImg.url}} alt={{memoryOnChangingWalletImg.name}}>
+</div>

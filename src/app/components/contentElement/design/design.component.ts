@@ -74,19 +74,7 @@ export class DesignComponent implements OnChanges {
   changeThemeCode: string = `
   Future<void> _themeDialog() async {
     ThemeOptions selection = await showAppDialog<ThemeOptions>(
-        context: context,
-        builder: (BuildContext context) {
-          return AppSimpleDialog(
-            title: Padding(
-              padding: const EdgeInsets.only(bottom: 10.0),
-              child: Text(
-                AppLocalization.of(context).themeHeader,
-                style: AppStyles.textStyleDialogHeader(context),
-              ),
-            ),
-            children: _buildThemeOptions(),
-          );
-        });
+        ...);
     if (_curThemeSetting != ThemeSetting(selection)) {
       sl
           .get<SharedPrefsUtil>()
@@ -115,19 +103,7 @@ export class DesignComponent implements OnChanges {
   changeLanguageCode : string = `
   Future<void> _languageDialog() async {
     AvailableLanguage selection = await showAppDialog<AvailableLanguage>(
-        context: context,
-        builder: (BuildContext context) {
-          return AppSimpleDialog(
-            title: Padding(
-              padding: const EdgeInsets.only(bottom: 10.0),
-              child: Text(
-                AppLocalization.of(context).language,
-                style: AppStyles.textStyleDialogHeader(context),
-              ),
-            ),
-            children: _buildLanguageOptions(),
-          );
-        });
+        ...);
     sl
         .get<SharedPrefsUtil>()
         .setLanguage(LanguageSetting(selection))

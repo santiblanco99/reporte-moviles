@@ -97,10 +97,12 @@
                                 rel="noopener noreferrer" href="https://pub.dev/packages/event_taxi">event_taxi</a> para
                             manejar eventos de forma local. Dentro del archivo <span
                                 class="italic">lib/appstate_container.dart</span>
-                            se inicializa el bus de eventos y a lo largo de diferentes partes de la app se consumen. El
-                            código de la inicialización del bus se muestra a continuación. Por ejemplo, ellos crean un
-                            evento en el que se registra si la cuenta actual del usuario ha sido modificada o eliminada.
-                            Dependiendo del caso, se cambia el estado de la aplicación.
+                            se inicializa el bus de eventos y a lo largo de diferentes partes de la app se consumen.
+                        </p>
+                        <p>
+                            Por ejemplo, ellos se suscriben a un evento en el que se registra si la cuenta actual del
+                            usuario ha
+                            sido modificada o eliminada. Dependiendo del caso, se cambia el estado de la aplicación.
                         </p>
                         <pre>
                                 <code [highlight]="eventDrivenInitialization" [lineNumbers]="true"></code>

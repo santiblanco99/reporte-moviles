@@ -67,8 +67,14 @@
                             href="https://pub.dev/packages/event_taxi">event_taxi</a> para notificarle a los
                         suscriptores de un
                         bus en particular que
-                        el dispositivo se desconectó. Luego, llama al método <span
-                            class="italic">initCommunication</span> que,
+                        el dispositivo se desconectó.
+
+                    </p>
+                    <pre>
+                        <code [highlight]="currentConnectivityBruteCheckFirst" [lineNumbers]="true"></code>
+                    </pre>
+                    <p>
+                        Luego, llama al método <span class="italic">initCommunication</span> que,
                         a su vez, llama al método <span class="italic">reconnectService</span> (el cual lo único que
                         hace es
                         esperar tres segundos para, posteriormente, llamar de nuevo a <span
@@ -76,9 +82,6 @@
                         servidor,
                         si falla, vuelve a emitir el mensaje de desconexión para repetir el ciclo recién explicado.
                     </p>
-                    <pre>
-                <code [highlight]="currentConnectivityBruteCheckFirst" [lineNumbers]="true"></code>
-            </pre>
                     <pre>
                 <code [highlight]="currentConnectivityBruteCheckSecond" [lineNumbers]="true"></code>
             </pre>
@@ -126,9 +129,9 @@
                     redireccionamiento a la página de política de privacidad en caso de que tenga conexión o que la
                     misma se haya descargado en el caché. El código de cómo están abriendo las url's externas se muestra
                     a continuación. En este, podemos observar cómo, en ningún instante, se tiene en cuenta la conexión
-                    del usuario:
+                    del usuario.
                 </p>
-
+                <p>Lo único que hace es detectar que el usuario hizo un tap y tratar de mostrar la vista web</p>
                 <pre>
                     <code [highlight]="privacyPolicyCode" [lineNumbers]="true"></code>
                 </pre>

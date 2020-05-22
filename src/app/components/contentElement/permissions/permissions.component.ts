@@ -30,16 +30,7 @@ export class PermissionsComponent implements OnChanges {
     LocalAuthentication localAuth = new LocalAuthentication();
     bool canCheck = await localAuth.canCheckBiometrics;
     if (canCheck) {
-      List<BiometricType> availableBiometrics = await localAuth.getAvailableBiometrics();
-      availableBiometrics.forEach((type) {
-        sl.get<Logger>().i(type.toString());
-        sl.get<Logger>().i("\${type == BiometricType.face ? 'face' : type == BiometricType.iris ? 'iris' : type == BiometricType.fingerprint ? 'fingerprint' : 'unknown'}");
-      });
-      if (availableBiometrics.contains(BiometricType.face)) {
-        return true;
-      } else if (availableBiometrics.contains(BiometricType.fingerprint)) {
-        return true;
-      }
+      ...
     }
     return false;
   }
@@ -87,23 +78,7 @@ export class PermissionsComponent implements OnChanges {
           if (result == null) {
             return;
           }
-          Address address = new Address(result);
-          if (address.isValid()) {
-            setState(() {
-              _addressValidAndUnfocused = true;
-              _showPasteButton = false;
-              _repAddressStyle =
-                  AppStyles.textStyleAddressText60(
-                      context);
-            });
-            _repController.text = address.address;
-            _repFocusNode.unfocus();
-          } else {
-            UIUtil.showSnackbar(
-                AppLocalization.of(context)
-                    .qrInvalidAddress,
-                context);
-          }
+          ...
         });                                         
     },
   ),

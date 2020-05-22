@@ -47,17 +47,11 @@ export class EventualConnectivityComponent implements OnChanges {
 
   /// Retry up to once per 3 seconds
   Future<void> reconnectToService() async {
-    if (_isInRetryState) {
-      return;
-    } else if (reconnectStream != null) {
-      reconnectStream.cancel();
-    }
+    ...
     _isInRetryState = true;
     log.d("Retrying connection in 3 seconds...");
     Future<dynamic> delayed = new Future.delayed(new Duration(seconds: 3));
-    delayed.then((_) {
-      return true;
-    });
+    ...
     reconnectStream = delayed.asStream().listen((_) {
       log.d("Attempting connection to service");
       initCommunication(unsuspend: true);
@@ -67,34 +61,17 @@ export class EventualConnectivityComponent implements OnChanges {
 
   // Connect to server
   Future<void> initCommunication({bool unsuspend = false}) async {
-    if (_isConnected || _isConnecting) {
-      return;
-    } else if (suspended && !unsuspend) {
-      return;
-    } else if (!unsuspend) {
-      reconnectToService();
-      return;
-    }
-    _isConnecting = true;
+    ...
     try {
-      var packageInfo = await PackageInfo.fromPlatform();
-
-      _isConnecting = true;
-      suspended = false;
+      ...
       _channel = new IOWebSocketChannel
                       .connect(_SERVER_ADDRESS,
                                headers: {
                                 'X-Client-Version': packageInfo.buildNumber
                                });
-      log.d("Connected to service");
-      _isConnecting = false;
-      _isConnected = true;
-      EventTaxiImpl.singleton().fire(ConnStatusEvent(status: ConnectionStatus.CONNECTED));
-      _channel.stream.listen(_onMessageReceived, onDone: connectionClosed, onError: connectionClosedError);
+      ...
     } catch(e){
-      log.e("Error from service \${e.toString()}", e);
-      _isConnected = false;
-      _isConnecting = false;
+      ...
       EventTaxiImpl.singleton().fire(ConnStatusEvent(status: ConnectionStatus.DISCONNECTED));
     }
   }
@@ -124,28 +101,10 @@ export class EventualConnectivityComponent implements OnChanges {
             AppLocalization.of(context).privacyUrl);
       }));
     },
-    child: Text(
-        AppLocalization.of(context).privacyPolicy,
-        style: AppStyles.textStyleVersionUnderline(
-            context)))
-            
-  // lib/ui/util/ui_util.dart
-
-  static Widget showWebview(BuildContext context, String url) {
-    cancelLockEvent();
-    return WebviewScaffold(
-      resizeToAvoidBottomInset: Platform.isAndroid,
-      url: url,
-      appBar: new AppBar(
-        backgroundColor: StateContainer.of(context).curTheme.backgroundDark,
-        brightness: StateContainer.of(context).curTheme.brightness,
-        iconTheme: IconThemeData(color: StateContainer.of(context).curTheme.text),
-      ),
-    );
-  }
+    ...            
   `;
 
-  denyPermissionsErrorCameraFile : CustomImage = {
+  denyPermissionsErrorCameraFile: CustomImage = {
     url: '',
     name: 'Error on camera/file reader permissions photo'
   }

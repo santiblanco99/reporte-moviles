@@ -3,12 +3,12 @@
         <div class="col-md-6 col-sm-12">
             <h1>Tabla de contenido</h1>
         </div>
-        <div class="col-md-6 col-sm-12" >
+        <div class="col-md-6 col-sm-12">
             <button style="float: right;" mat-raised-button color="warm" (click)="accordion.openAll();handleOpenClose()"
                 *ngIf="showOpenAll">Abrir
                 todos</button>
-            <button style="float: right;" mat-raised-button color="warm" (click)="accordion.closeAll();handleOpenClose()"
-                *ngIf="!showOpenAll">Cerrar
+            <button style="float: right;" mat-raised-button color="warm"
+                (click)="accordion.closeAll();handleOpenClose()" *ngIf="!showOpenAll">Cerrar
                 todos</button>
         </div>
     </div>
@@ -65,7 +65,7 @@
                     Almacenamiento y su relación con seguridad
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <app-storage  [commonImages]="commonImages"></app-storage>
+            <app-storage [commonImages]="commonImages"></app-storage>
         </mat-expansion-panel>
 
         <mat-expansion-panel>
@@ -74,7 +74,16 @@
                     Profiling
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <app-profiling  [commonImages]="commonImages"></app-profiling>
+            <app-profiling [commonImages]="commonImages"></app-profiling>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Programación Asíncrona
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-async></app-async>
         </mat-expansion-panel>
     </mat-accordion>
 

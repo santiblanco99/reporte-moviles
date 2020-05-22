@@ -1,0 +1,77 @@
+<h1>Futures</h1>
+<hr>
+<p>Natrium realiza un uso extenso de futuros en el código, debido a las librerías que utiliza a lo largo de la
+    aplicación. Desde el almacenamiento hasta el uso de la autenticación biómetrica del dispositivo, Natrium
+    utiliza futuros con el fin de realizar peticiones asincronas mientras otras partes del código se ejecutan. En
+    esta sección del reporte se mostrarán los múltiples casos de uso de esta clase de Flutter en la aplicación y su
+    explicación correspondiente.
+</p>
+<h3>Pero, ¿Qué es un Future?</h3>
+<p>
+    Un future o "futuro", de acuerdo con la documentación oficial de Flutter, es "un objeto representando una
+    computación retrasada". Esta clase es utilizada para representar un valor potencial, que será disponible en un
+    futuro. En otras palabras, esta clase reprsenta el uso de programación asíncrona en Flutter, similar a una promesa
+    en Javascript, donde se encuentra la posibilidad de seguir ejecutando código, mientras se espera el resultado de la
+    clase (Future y Promise, respectivamente).
+</p>
+<hr>
+<h2>Uso de Futures en Natrium</h2>
+<p>
+    A continuación se exponen algunos ejemplos de los múltiples usos de Futures en Natrium:
+</p>
+<h2>Uso de API's</h2>
+<span>En este ejemplo, se evidencia el uso de un Future para realizar una petición a una API de la aplicación:</span>
+<pre>
+    <code [highlight]="codeSnippets[0]" [lineNumbers]="true" [languages]="languages" ></code>
+</pre>
+<p>En este caso, el método que realiza una petición http a una API de Natrium es de tipo Future, con un valor 
+    esperado de <b>String</b>. Para este caso particular se evidencia que tanto la variable <i>http.Response</i> 
+    como la petición de guardar por parte de la variable <i>sl.get()</i> utilizan el keyword <b>await</b>,
+    indicándole a Flutter que espere a que termine el Futuro antes de proceder con el código faltante.
+</p>
+<hr>
+<h2>Autenticación biométrica del dispositivo</h2>
+<span>Esta función responde verdadero en caso de que el dispositivo actual poseea autenticación biométrica y
+    falso en el caso contrario:
+</span>
+<pre>
+    <code [highlight]="codeSnippets[1]" [lineNumbers]="true" [languages]="languages" ></code>
+</pre>
+<p>De manera similar al ejemplo anterior, esta función realiza varios llamados a variables de tipo future a lo largo
+    del código. En primera instancia, la función pregunta si tiene la posibilidad de revisar la autenticación local
+    del dispostivo, a través de la variable <i>canCheck</i>. En caso de que si, procede a revisar las opciones
+    con el uso de otra variable <code>future</code> llamada <i>availableBiometrics</i>. Posterior al uso del logger
+    para la terminal de debugeo, la función devuelve verdadero unicamente en el caso de que encuentra autenticacion facial
+    o por medio de huella. De lo contrario, retorna falso.
+</p>
+<hr>
+
+<h2>Platform-Specific Functions</h2>
+<span>Esta función cambia un compomente de la interfaz, sin embargo, es dependiente de la plataforma del dispositivo:
+</span>
+<pre>
+    <code [highlight]="codeSnippets[2]" [lineNumbers]="true" [languages]="languages" ></code>
+</pre>
+<p>Esta función, como su nombre lo indica, cambia un ícono de la interfaz dependiendo del tema actual de la
+    aplicación, y aunque la mayoría del código es bastante trivial, el uso del Future se 
+    evidencia en la última línea de código, donde se invoca un método específico a una plataforma (En este caso
+    la plataforma de Android, pues al comienzo de la función se retorna nulo en el caso de que el dispositivo sea
+    iOS). Esta invocación se realiza a través de un <i>Method Channel</i>, el cual hace uso de programación 
+    asíncrona, en este caso un <i>Future</i>, para realizar el llamado al método de Android.
+</p>
+<hr>
+
+<h2>Almacenamiento</h2>
+<span>Esta función guarda un contacto en el almacenamiento local del dispositivo:
+</span>
+<pre>
+    <code [highlight]="codeSnippets[3]" [lineNumbers]="true" [languages]="languages" ></code>
+</pre>
+<p>Como se logra observar en el snippet de código, esta función realiza bastantes llamados a variables <i>Future</i>, con
+    el fin de guardar un contacto de muestra para donaciones. El primer condicional depende del llamado a la dependencia
+    de <i>Shared Preferences</i> de Flutter, en caso de que no exista en contacto, el código continua, de lo contrario se hace
+    return. Posteriormente, se busca el contacto en la base de datos de <i>SQLite</i> de la app, tanto con el nombre como 
+    con la dirección del mismo (Ambos métodos de busqueda son de tipo Future). En caso de que no exista en ningun caso,
+    se crea la variable del contacto y se guarda en la base de datos de manera asíncrona. 
+</p>
+<hr>

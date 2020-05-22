@@ -81,6 +81,7 @@ import { ChartsModule } from 'ng2-charts';
 import { HighlightModule } from 'ngx-highlightjs';
 import { PermissionsComponent } from './components/contentElement/permissions/permissions.component';
 import { ProfilingComponent } from './components/contentElement/profiling/profiling.component';
+import { AsyncComponent } from './components/async/async.component';
 
 
 
@@ -103,6 +104,7 @@ import { ProfilingComponent } from './components/contentElement/profiling/profil
     AddNewBugComponent,
     PermissionsComponent,
     ProfilingComponent,
+    AsyncComponent,
   ],
   imports: [
     BrowserModule,
